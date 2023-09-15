@@ -6,15 +6,15 @@ import { Link } from "react-router-dom";
 import {InputReducer} from "../../../reducer/inputReducer";
 
 export let ment = {}
-function SubmitBox() {
+function SubmitBox({recoList }) {
     // const [inputValue,setInputValue]=useState('')
     
     
   const [state,dispatch]=useReducer(InputReducer,{value:''})
  ment = state;
-  console.log('ment값',ment)
-console.log('바뀐state값',state.value)
-console.log('바뀐state값',typeof(state.value))
+//   console.log('ment값',ment)
+// console.log('바뀐state값',state.value)
+// console.log('바뀐state값',typeof(state.value))
 
   return (
     <SubmitBoxWrap>
@@ -24,7 +24,7 @@ console.log('바뀐state값',typeof(state.value))
         class="categoryInput"
       />
       <Link to='/writeMain'><ArrowImg src={rightArrow} alt="" /></Link>
-      <SuggestionList dispatchValue={dispatch} />
+      <SuggestionList dispatchValue={dispatch} recoList={recoList} />
     </SubmitBoxWrap>
   );
 }

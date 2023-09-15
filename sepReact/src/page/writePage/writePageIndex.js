@@ -2,9 +2,10 @@ import styled from "styled-components";
 import CategoryList from "./component/categoryList";
 import SuggestionList from "./component/suggestionList";
 import SubmitBox from "./component/submitBox";
+import { useState } from "react";
 
 function WrtiePageIndex(){
-
+const [recoList,setRecoList]=useState('');
     return(
      <Main>
         <div></div>
@@ -17,9 +18,9 @@ function WrtiePageIndex(){
                 <p>과학</p>
                 <span>보안 목적 드론의 카메라의 사생활 침해 문제</span>
               </Category>
-             <CategoryList/>
+             <CategoryList recoList={recoList} setRecoList={setRecoList}/>
             </CategoryWrap>
-            <SubmitBox/>
+            <SubmitBox recoList={recoList} />
           </Wrap>
         </div>
         <div></div>

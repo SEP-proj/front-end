@@ -1,46 +1,84 @@
+import { useReducer, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import { saveAll, saveConclu, saveIntro, saveMainSub } from "../../../api/api";
+import { SubmitReducer } from "../../../reducer/submitReducer";
+
 
 function Writing(){
+
+    let Intro;
+    let MainSub;
+    let Conclu;
     const navigator=useNavigate();
+    
+    const intro=useRef();
+    const mainSub=useRef ();
+    const conclu=useRef();
+    
+   
     const clickNext=()=>{
-        navigator('/finalWrite')
-    }
-    const saveClick=()=>{
-        axois({
-            method:"POST",
-            url:'',
-            data:{'data':}
+        navigator('/finalWrite');
+        Intro=(intro.current.value);
+        MainSub=(mainSub.current.value);
+        Conclu=(conclu.current.value);
+        saveAll(Intro,MainSub,Conclu).then(res=>{
+            console.log(res)
+          
+      
         })
     }
+
+    const clickSaveIntro=()=>{
+        
+        Intro=(intro.current.value)
+        saveIntro(Intro).then(res=>{
+            console.log(res)
+        })
+    }
+    const clickSaveMainSub=()=>{
+        
+        MainSub=(mainSub.current.value)
+        saveMainSub(MainSub).then(res=>{
+            console.log(res)
+        })
+    }
+    const clickSaveConclu=()=>{
+        
+        Conclu=(conclu.current.value)
+        saveConclu(Conclu).then(res=>{
+            console.log(res)
+        })
+    }
+
     return(
         <>
     <WritingWrap>
             <Introdution>
                 <SaveBox>
               <h4>서론</h4>
-              <Save>임시저장</Save>
+              <Save onClick={clickSaveIntro}>임시저장</Save>
               </SaveBox>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
+              <textarea name="" id="" cols="30" rows="10" ref={intro} ></textarea>
             </Introdution>
             <MainSubject>
                 <SaveBox>
               <h4>본론</h4>
-              <Save>임시저장</Save>
+              <Save onClick={clickSaveMainSub}> 임시저장</Save>
               </SaveBox>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
+              <textarea name="" id="" cols="30" rows="10" ref={mainSub}></textarea>
             </MainSubject>
             <Conclusion>
                 <SaveBox>
               <h4>결론</h4>
-              <Save>임시저장</Save>
+              <Save onClick={clickSaveConclu}>임시저장</Save>
               </SaveBox>
-              <textarea name="" id="" cols="30" rows="10"></textarea>
+              <textarea name="" id="" cols="30" rows="10" ref={conclu}></textarea>
             </Conclusion>
           </WritingWrap>
           <BtnBox>
            
-            <button className="next" onClick={clickNext}>다음</button>
+            <div className="next" onClick={clickNext}>다음</div>
           </BtnBox>
           </>
     )
@@ -49,8 +87,10 @@ export default Writing;
 let WritingWrap=styled.div`
 text-align: left;
 margin-top: 30px;
+margin-left:100px;
 & h4{
     margin-top: 20px;
+   
 }
 `
 let Introdution=styled.div`
@@ -91,7 +131,7 @@ let Conclusion=styled.div`
 `
 let BtnBox=styled.div`
 margin-top: 20px;
-margin-left: 48%;
+margin-left: 54%;
 
 
 & .next{

@@ -3,7 +3,14 @@ import ChatContainer from "../../commend/chatContainer";
 import FinalTitle from "./componenet/finalTitle";
 import FinalContent from "./componenet/finalContent";
 
+
+
+
 function FinalWritePageIndex() {
+
+  
+
+
   return (
     <Main>
       <MainWrap>
@@ -13,7 +20,7 @@ function FinalWritePageIndex() {
         </Subject>
         <FinalWriting>
           <FinalTitle/>
-          <FinalContent/>
+          <FinalContent />
           <FinalSubmit>
             <div>
               공개하기

@@ -20,7 +20,7 @@ const routes = () => [
   },
   {
     path: "/finalWrite",
-    element: <FinalWritePageIndex />,
+    element: <FinalWritePageIndex  />,
   },
 
 

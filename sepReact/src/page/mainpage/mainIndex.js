@@ -1,12 +1,19 @@
 import styled from "styled-components";
 import RecommendList from "./component/recommendList/recommendList";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import getSubject from "../../api/api";
 
 function MainIndex() {
   const navigate = useNavigate();
   const clickStart = () => {
     navigate("/writePage");
   };
+  // useEffect(()=>{
+  //   getSubject().then((res)=>{
+  //     console.log(res)
+  //   })
+  // })
   return (
     <Main>
       <MainWrap>
@@ -18,7 +25,7 @@ function MainIndex() {
           </p>
           <button onClick={clickStart}>시작하기</button>
         </MainBanner>
-        <img src="./img/javaspring.png" alt="" />
+        <img src="https://media.discordapp.net/attachments/1148477775062249534/1151462800028352532/images.png?width=799&height=600" alt="" />
       </MainWrap>
       <Contents>
         <ContetnHeader>
@@ -43,13 +50,18 @@ grid-template-rows: 50% 50%;
 let MainWrap = styled.div`
   display: flex;
   background-color: #a2d4f7;
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
+ & >img{
+  width:500px;
+  height:300px;
+
+ 
 `;
 let MainBanner = styled.div`
   text-align: center;
   font-size: 25px;
-  margin-left: 20%;
+  margin-left: 5%;
   margin-top: 40px;
   & button {
     width: 150px;

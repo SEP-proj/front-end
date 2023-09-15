@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 // import {InputReducer,state} from "../../../reducer/inputReducer";
 
-function SuggestionList({dispatchValue}){
+function SuggestionList({dispatchValue,recoList}){
     const suggest=[
         {
             content:'국가 안전과 개인 프라이버시 간의 갈등'
@@ -23,7 +23,7 @@ function SuggestionList({dispatchValue}){
     // const [state,dispatch]=useReducer(InputReducer,{value:''})
     const valueOnclick=(e)=>{
         dispatchValue(e.target.innerText);
-    
+        
         
     }
     return(
