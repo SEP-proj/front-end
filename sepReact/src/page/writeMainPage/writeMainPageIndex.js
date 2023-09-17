@@ -6,6 +6,7 @@ import { ment } from "../writePage/component/submitBox";
 import { useEffect, useReducer, useState } from "react";
 import LightChatBot from "./componenet/lightChatBot";
 import { InputReducer } from "../../reducer/inputReducer";
+import { useSelector } from "react-redux";
 
 let flag = false;
 let intervalTest;
@@ -45,16 +46,14 @@ function WriteMainPageIndex() {
   //  useEffect(()=>{
 
   //  },[])
-// const [state,dispatch]=useReducer(InputReducer,{value:''})
-//  ment=state;
-
+const [chatText,setChatText]=useState("")
   return (
     <Main>
       <MainWrap>
         <div></div>
         <div>
           <Subject>
-            <p>환경</p>
+            <p>사회</p>
             <span>{ment.value}</span>
           </Subject>
           <Writing
@@ -62,9 +61,9 @@ function WriteMainPageIndex() {
        
           />
         </div>
-        <LightChatBot light={light} />
+        <LightChatBot light={light} setLight={setLight} chatText={chatText}/>
       </MainWrap>
-      <ChatContainer />
+      <ChatContainer light={light} setChatText={setChatText}/>
     </Main>
   );
 }

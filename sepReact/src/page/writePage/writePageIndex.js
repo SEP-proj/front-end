@@ -5,7 +5,9 @@ import SubmitBox from "./component/submitBox";
 import { useState } from "react";
 
 function WrtiePageIndex(){
-const [recoList,setRecoList]=useState('');
+const [recoList,setRecoList]=useState([]);
+const [suggestion,setSuggestion]=useState(false);
+
     return(
      <Main>
         <div></div>
@@ -17,10 +19,11 @@ const [recoList,setRecoList]=useState('');
                 <div>오늘의 주제</div>
                 <p>과학</p>
                 <span>보안 목적 드론의 카메라의 사생활 침해 문제</span>
+
               </Category>
-             <CategoryList recoList={recoList} setRecoList={setRecoList}/>
+             <CategoryList setRecoList={setRecoList} setSuggestion={setSuggestion} recoList={recoList} />
             </CategoryWrap>
-            <SubmitBox recoList={recoList} />
+            <SubmitBox recoList={recoList} suggestion={suggestion}/>
           </Wrap>
         </div>
         <div></div>

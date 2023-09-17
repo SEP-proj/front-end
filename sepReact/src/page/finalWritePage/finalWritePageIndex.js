@@ -2,25 +2,27 @@ import styled from "styled-components";
 import ChatContainer from "../../commend/chatContainer";
 import FinalTitle from "./componenet/finalTitle";
 import FinalContent from "./componenet/finalContent";
+import { ment } from "../writePage/component/submitBox";
+import { useState } from "react";
 
 
 
 
 function FinalWritePageIndex() {
 
-  
+const [title,setTitle]=useState("");
 
 
   return (
     <Main>
       <MainWrap>
         <Subject>
-          <p>환경</p>
-          <span>"탄소중립"에 앞장서야하나, 속도 조절필요한가</span>
+          <p>사회</p>
+          <span>{ment.value}</span>
         </Subject>
         <FinalWriting>
-          <FinalTitle/>
-          <FinalContent />
+          <FinalTitle title={title} setTitle={setTitle}/>
+          <FinalContent setTitle={setTitle}/>
           <FinalSubmit>
             <div>
               공개하기

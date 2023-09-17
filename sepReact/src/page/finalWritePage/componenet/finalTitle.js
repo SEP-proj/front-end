@@ -1,11 +1,22 @@
 import styled from "styled-components";
 import refresh from '../../../asset/img/refresh.png'
-function FinalTitle() {
+import { getRecommendTitle } from "../../../api/api";
+import { useMemo, useState } from "react";
+function FinalTitle({title,setTitle}){
+  const [flag,setFlag]=useState(false);
+  const [title2,setTitle2]=useState('')
+  const clickRecommend=()=>{
+    getRecommendTitle().then((res)=>{
+      console.log(res.data.title)
+      setTitle2(res.data.title)
+setFlag(true)
+    })
+  }
   return (
     <FinalTitleWrap>
       <span class="title">제목</span>
-      <span>기후 위기 대처를 위한 탄소중립</span>
-      <button>
+      <span>{flag?title2:title}</span>
+      <button onClick={clickRecommend}>
         <img src={refresh} alt="" />
       </button>
     </FinalTitleWrap>

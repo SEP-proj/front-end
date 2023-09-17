@@ -4,18 +4,24 @@ import rightArrow from '../../../asset/img/rightArrow.png'
 import { useReducer } from "react";
 import { Link } from "react-router-dom";
 import {InputReducer} from "../../../reducer/inputReducer";
+import { next } from "../../../api/api";
 
 export let ment = {}
-function SubmitBox({recoList }) {
+function SubmitBox({recoList,suggestion }) {
     // const [inputValue,setInputValue]=useState('')
-    
+    let Subject;
     
   const [state,dispatch]=useReducer(InputReducer,{value:''})
  ment = state;
 //   console.log('ment값',ment)
 // console.log('바뀐state값',state.value)
 // console.log('바뀐state값',typeof(state.value))
+const ClickNext=()=>{
 
+  Subject=state.value
+  console.log("Subject",Subject)
+  next(Subject)
+}
   return (
     <SubmitBoxWrap>
       <CategorytInput
@@ -23,8 +29,8 @@ function SubmitBox({recoList }) {
         placeholder={(state.value=='')?"카테고리 속 주제를 선택해주세요":state.value}
         class="categoryInput"
       />
-      <Link to='/writeMain'><ArrowImg src={rightArrow} alt="" /></Link>
-      <SuggestionList dispatchValue={dispatch} recoList={recoList} />
+      <Link to='/writeMain'><ArrowImg src={rightArrow} onClick={ClickNext} alt="" /></Link>
+      <SuggestionList dispatchValue={dispatch} recoList={recoList} suggestion={suggestion}  />
     </SubmitBoxWrap>
   );
 }

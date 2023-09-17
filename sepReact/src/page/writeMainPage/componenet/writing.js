@@ -5,11 +5,13 @@ import { saveAll, saveConclu, saveIntro, saveMainSub } from "../../../api/api";
 import { SubmitReducer } from "../../../reducer/submitReducer";
 
 
+
+export let Intro='';
+export let MainSub='';
+export let Conclu='';
 function Writing(){
 
-    let Intro;
-    let MainSub;
-    let Conclu;
+
     const navigator=useNavigate();
     
     const intro=useRef();
@@ -17,16 +19,15 @@ function Writing(){
     const conclu=useRef();
     
    
+    // const [state,dispatch]=useReducer(SubmitReducer,{value:''})
+    // submitText = state;
+
     const clickNext=()=>{
         navigator('/finalWrite');
         Intro=(intro.current.value);
         MainSub=(mainSub.current.value);
         Conclu=(conclu.current.value);
-        saveAll(Intro,MainSub,Conclu).then(res=>{
-            console.log(res)
-          
       
-        })
     }
 
     const clickSaveIntro=()=>{

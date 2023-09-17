@@ -1,18 +1,24 @@
 import axios from "axios";
 import styled from "styled-components";
-import { getClickSubject } from "../../../api/api";
-import { useState } from "react";
+import { getCategoryList, getClickSubject } from "../../../api/api";
+import { useEffect, useState } from "react";
 
-function CategoryList({setRecoList}){
-    // const[category,setCategory]=useState('')
+function CategoryList({setRecoList,recoList,setSuggestion={setSuggestion}}){
+
+    const[category,setCategory]=useState(false)
     const inputTitle=(e)=>{
-       
+        console.log("recoList = ",recoList);
         let category=e.target.innerText
+        setSuggestion(true)
         getClickSubject(category).then((res)=>{
-            console.log('writePagrres:',res)
-            setRecoList(res)
-        })
+            console.log('writePagrres:',res.data.body.subjects)
+            setRecoList(res.data.body.subjects);
+     
+
+          
+    })
     }
+  
  const categoryList=[
     {
         title:'일상'
@@ -36,9 +42,10 @@ function CategoryList({setRecoList}){
  ]
     return(
         <div>
-        <CategortUl>
-            {categoryList.map((list)=><li onClick={inputTitle}><p >{list.title}</p></li>)}
-         
+        <CategortUl category={category}>
+            {categoryList.map((list)=><li onClick={inputTitle}><p>{list.title}</p></li>)}
+
+            
         </CategortUl>
       </div>
     )

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-function ChatContainer(){
+function ChatContainer({light,setChatText}){
     
     const chatList=[
         {
@@ -8,16 +8,19 @@ function ChatContainer(){
             title:''
         }
     ]
+    const textChange=(e)=>{
+        setChatText(e.target.value);
+    }
     return(
         <ChatBot>
         <div></div>
         <ChatWrap>
         <ChatTitle>챗봇 가이드</ChatTitle>
         <ChatList>
-          <li>탄소중립이란? -백과사전</li>
-          
+
+        {light}
         </ChatList>
-        <ChatInput type="text" placeholder="궁금한 것을 물어보세요 " />
+        <ChatInput type="text" placeholder="궁금한 것을 물어보세요 " onChange={textChange}/>
       </ChatWrap>
           <div></div>
           </ChatBot>

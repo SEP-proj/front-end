@@ -2,24 +2,25 @@ import styled from "styled-components";
 import blackChatBot from '../../../asset/img/blackChatBot.png'
 import whiteChatBot from '../../../asset/img/whiteChatBot.png'
 import { useState } from "react";
-function LightChatBot({light,setLight}){
+import { getChatText } from "../../../api/api";
+import { Conclu, Intro, MainSub } from "./writing";
+function LightChatBot({light,setLight,chatText}){
     const [openModal,setOpenModal]=useState(false);
-    const explanationModal=()=>{
-setOpenModal(!openModal)
-setLight(!light)
+    
+    const clickChat=()=>{
+        
+        getChatText(Intro,MainSub,Conclu,chatText).then((res)=>{
+            console.log(res);
+            let str=res;
+            str = str.replace(/\n/g ,'<br/>');
+            setLight(res)
+        })
     }
     return(
         <div>
           
-          <div onClick={explanationModal}><Img src={light?whiteChatBot:blackChatBot} alt="" /></div>
-         {openModal?
-          <div>
-          <p>
-              설명
-          </p>
-       </div>:
-       <></>
-        }
+          <div onClick={clickChat}><Img src={blackChatBot} alt="" /></div>
+         
         
         </div>
     )
