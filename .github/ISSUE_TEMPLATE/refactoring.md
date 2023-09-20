@@ -2,7 +2,7 @@
 name: Refactoring
 about: "\U0001F3D7️ 코드 수정 및 리펙토링"
 title: "[REFACTORING][페이지 이름]"
-labels: ''
+labels: "\U0001F3D7️Refactoring"
 assignees: ''
 
 ---

@@ -2,7 +2,7 @@
 name: New_Page/Update_Page
 about: "\U0001F3A8 새로운 페이지/업데이트 페이지 추"
 title: "[NEW/UPDATE][페이지 이름]"
-labels: ''
+labels: "\U0001F31FNewPage"
 assignees: ''
 
 ---

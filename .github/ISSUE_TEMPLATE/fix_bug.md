@@ -2,7 +2,7 @@
 name: Fix_bug
 about: "\U0001F6A8 버그 수정"
 title: "[BUG][페이지이름]"
-labels: ''
+labels: "\U0001F41EBugFix"
 assignees: ''
 
 ---
