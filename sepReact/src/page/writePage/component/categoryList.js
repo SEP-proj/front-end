@@ -2,19 +2,24 @@ import axios from "axios";
 import styled from "styled-components";
 import { getCategoryList, getClickSubject } from "../../../api/api";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-function CategoryList({setRecoList,recoList,setSuggestion={setSuggestion}}){
-
-    const[category,setCategory]=useState(false)
+function CategoryList({setRecoList,setSuggestion,category}){
+let test=[{
+    title:"title"
+}]
+const dispatch=useDispatch()
     const inputTitle=(e)=>{
-        console.log("recoList = ",recoList);
-        let category=e.target.innerText
+ 
+        
+    dispatch({type:'CATEGORY',payload:e.target.innerText});
         setSuggestion(true)
+        console.log(category)
         getClickSubject(category).then((res)=>{
             console.log('writePagrres:',res.data.body.subjects)
-            setRecoList(res.data.body.subjects);
-     
-
+            // setRecoList(res.data.body.subjects);
+            setRecoList(test);
+            
           
     })
     }
@@ -42,7 +47,8 @@ function CategoryList({setRecoList,recoList,setSuggestion={setSuggestion}}){
  ]
     return(
         <div>
-        <CategortUl category={category}>
+      
+        <CategortUl >
             {categoryList.map((list)=><li onClick={inputTitle}><p>{list.title}</p></li>)}
 
             
@@ -54,21 +60,24 @@ export default CategoryList;
 
 let CategortUl=styled.ul`
 margin-top: 20px;
-width: 700px;
+width: 800px;
 display: flex;
 justify-content: space-between;
+
 & >li{
-    margin-left: 30px;
-    background-color: #00BF2A;
-   
-    height: 30px;
+    
+    background-color: white;
+    width:120px;    
+    border:1px solid black;
+    height: 40px;
+    text-align:center;
     border-radius: 10px;
     font-size: 18px;
-    color: white;
-    cursor: pointer;
- 
+    color: black;
+    cursor: pointer; 
 }
+
 & >li>p{
-    padding: 2px 8px;
+    margin-top:6px
 }
 `

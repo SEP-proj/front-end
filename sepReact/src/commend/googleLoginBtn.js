@@ -33,7 +33,7 @@ function GoogleLoginBtn(){
 
             <div className='social_login_box google' onClick={() => googleSocialLogin()}>
                         <ImgBox>
-                          <img src={google} alt="" />
+                          <LoginBtn>로그인</LoginBtn>
                         </ImgBox>
                         <div className='social_login_text_box'></div>
                         <div className='social_login_blank_box'> </div>
@@ -48,4 +48,15 @@ cursor:pointer;
 &img{
     width:40px;
 }
+`
+let LoginBtn=styled.button`
+cursor: pointer;
+background-color: black;
+color: white;
+font-size: 18px;
+height: 40px;
+width: 100px;
+border-radius: 5px;
+border: none;
+
 `

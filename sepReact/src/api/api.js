@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = "http://192.168.0.189:8080"
+const baseUrl = "http://192.168.0.48:8080"
 
 export async function getClickSubject(category){
     console.log("category" + category)
@@ -14,13 +14,13 @@ export async function getClickSubject(category){
 } 
 
 
-export async function saveAll(Intro,MainSub,Conclu){
+export async function saveAll(WritingText){
+  let concat=await axios.put(baseUrl+"/v1/post/concat",{
   
-   let concat=await axios.put(baseUrl+"/v1/post/concat",{
     id:1,
-    introduction:Intro,
-        body:MainSub,
-        conclusion:Conclu
+    introduction:WritingText.intro,
+    body:WritingText.body,
+        conclusion:WritingText.conclu
     })
  
   return concat.data;
@@ -64,12 +64,20 @@ export async function next(Subject){
    })
 
 }
-export async function getChatText(Intro,MainSub,Conclu,chatText){
+export async function getChatText(WritingText,chatText){
  let Chat= await axios.post(baseUrl + "/v1/post/chat/help",{
   
-    introduction:Intro,
-    body:MainSub,
-    conclusion:Conclu,
+    introduction:WritingText.intro,
+    body:WritingText.body,
+    conclusion:WritingText.conclu,
+    user_input:chatText
+   })
+return Chat.data.data.body.answer;
+}
+export async function getSendText(chatText){
+ let Chat= await axios.post(baseUrl + "/v1/post/chat/help",{
+  
+
     user_input:chatText
    })
 return Chat.data.data.body.answer;
@@ -80,4 +88,18 @@ export async function getRecommendTitle(){
    
    })
 return Title.data;
+}
+export async function completeText(submit,bchecked){
+ let Text= await axios.get(baseUrl + "/v1/post/result",{
+    id:1,
+    title:submit.title,
+    content:submit.content,
+    published:bchecked
+   
+   })
+return Text.data;
+}
+export async function getCommunityList(){
+
+return ""
 }

@@ -1,13 +1,13 @@
 
 
-const initalState=''
+const initalState=false
  
 
  
- export default function inputReducer(state=initalState,action){
+ export default function headerReducer(state=initalState,action){
      console.log('넘어오는action',action)
  switch(action.type){
-     case 'INPUTTEXT':
+     case 'FLAG':
          
          return action.payload
          

@@ -1,163 +1,217 @@
-import { useReducer, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useReducer, useRef, useState } from "react";
+
 import styled from "styled-components";
-import { saveAll, saveConclu, saveIntro, saveMainSub } from "../../../api/api";
-import { SubmitReducer } from "../../../reducer/submitReducer";
 
+import { useDispatch, useSelector } from "react-redux";
+import { saveAll } from "../../../api/api";
 
+function Writing({ setNext,WritingText }) {
+  const intro = useRef();
+  const mainSub = useRef();
+  const conclu = useRef();
 
-export let Intro='';
-export let MainSub='';
-export let Conclu='';
-function Writing(){
+ 
 
+  const dispatch = useDispatch();
+  const clickNext = () => {
+    console.log("클릭발생");
 
-    const navigator=useNavigate();
-    
-    const intro=useRef();
-    const mainSub=useRef ();
-    const conclu=useRef();
-    
-   
-    // const [state,dispatch]=useReducer(SubmitReducer,{value:''})
-    // submitText = state;
+    setNext(true);
+    dispatch({
+      type: "WRITING",
+      payload: {
+        intro: intro.current.value,
+        body: mainSub.current.value,
+        conclu: conclu.current.value,
+      },
+    });
+    // console.log("saveAlltest 동작 확인");
+    // dispatch({
+    //   type: "SUBMITTEXT",
+    //   payload: { content: "submitTest완료", title: "submitTest중입니다" },
+    // });
+    saveAll(WritingText).then((res) => {
+      console.log(res);
 
-    const clickNext=()=>{
-        navigator('/finalWrite');
-        Intro=(intro.current.value);
-        MainSub=(mainSub.current.value);
-        Conclu=(conclu.current.value);
-      
-    }
+      console.log(res.data.content);
+      let str = res.data.content;
+      str = str.replace(/\n/g, "<br/>");
 
-    const clickSaveIntro=()=>{
-        
-        Intro=(intro.current.value)
-        saveIntro(Intro).then(res=>{
-            console.log(res)
-        })
-    }
-    const clickSaveMainSub=()=>{
-        
-        MainSub=(mainSub.current.value)
-        saveMainSub(MainSub).then(res=>{
-            console.log(res)
-        })
-    }
-    const clickSaveConclu=()=>{
-        
-        Conclu=(conclu.current.value)
-        saveConclu(Conclu).then(res=>{
-            console.log(res)
-        })
-    }
+      console.log("saveAll 동작 확인");
+      dispatch({
+        type: "SUBMITTEXT",
+        payload: { content: str, title: res.data.title },
+      });
+    });
+  };
 
-    return(
-        <>
-    <WritingWrap>
-            <Introdution>
-                <SaveBox>
-              <h4>서론</h4>
-              <Save onClick={clickSaveIntro}>임시저장</Save>
-              </SaveBox>
-              <textarea name="" id="" cols="30" rows="10" ref={intro} ></textarea>
-            </Introdution>
-            <MainSubject>
-                <SaveBox>
-              <h4>본론</h4>
-              <Save onClick={clickSaveMainSub}> 임시저장</Save>
-              </SaveBox>
-              <textarea name="" id="" cols="30" rows="10" ref={mainSub}></textarea>
-            </MainSubject>
-            <Conclusion>
-                <SaveBox>
-              <h4>결론</h4>
-              <Save onClick={clickSaveConclu}>임시저장</Save>
-              </SaveBox>
-              <textarea name="" id="" cols="30" rows="10" ref={conclu}></textarea>
-            </Conclusion>
-          </WritingWrap>
-          <BtnBox>
-           
-            <div className="next" onClick={clickNext}>다음</div>
-          </BtnBox>
-          </>
-    )
+  const clickSave = () => {
+    dispatch({
+      type: "WRITING",
+      payload: {
+        intro: intro.current.value,
+        body: mainSub.current.value,
+        conclu: conclu.current.value,
+      },
+    });
+
+    saveAll(WritingText).then((res) => {
+      console.log("saveALlRES", res);
+
+      console.log(res.data.content);
+      let str = res.data.content;
+      str = str.replace(/\n/g, "<br/>");
+
+      console.log("saveAll 동작 확인");
+      dispatch({
+        type: "SUBMITTEXT",
+        payload: { content: str, title: res.data.title },
+      });
+    });
+  };
+
+  return (
+    <>
+      <WritingWrap>
+        <Introdution>
+          <SaveBox>
+            <h3>서론</h3>
+          </SaveBox>
+          <input
+            
+            placeholder="◆ 글의 핵심 내용이 될 의견을 담아서 간략하게 표현해 보세요."
+            ref={intro}
+          />
+        </Introdution>
+        <MainSubject>
+          <SaveBox>
+            <h3>본론</h3>
+          </SaveBox>
+          <input
+            placeholder="◆ 앞서 작성한 주장에 대한 이유를 설명해보세요."
+            ref={mainSub}
+          />
+        </MainSubject>
+        <Conclusion>
+          <SaveBox>
+            <h3>결론</h3>
+          </SaveBox>
+          <input
+            placeholder="◆ 위에서 작성한 서론,본론을 보고 본인의 주장을 다시 강조해 보세요."
+            ref={conclu}
+          />
+        </Conclusion>
+      </WritingWrap>
+      <BtnBox>
+        <div className="next1" onClick={clickSave}>
+          임시저장
+        </div>
+        <div className="next2" onClick={clickNext}>
+          다음 단계로
+        </div>
+      </BtnBox>
+    </>
+  );
 }
 export default Writing;
-let WritingWrap=styled.div`
-text-align: left;
-margin-top: 30px;
-margin-left:100px;
-& h4{
-    margin-top: 20px;
-   
-}
-`
-let Introdution=styled.div`
-& textarea{
-    width: 80%;
-    height: 2em;
-    /* border: none; */
-    border-radius: 10px;
-    resize: none;
-    padding: 5px;
-    font-size: 20px;
-    margin-top: 10px;
-}
-`
-let MainSubject=styled.div`
-& textarea{
-    width: 80%;
-    height:6em;
-    /* border: none; */
-    border-radius: 10px;
-    resize: none;
-    padding: 5px;
-    font-size: 20px;
-    margin-top: 10px;
-}
-`
-let Conclusion=styled.div`
-& textarea{
-    width: 80%;
-    height:6em;
-    /* border: none; */
-    border-radius: 10px;
-    resize: none;
-    padding: 5px;
-    font-size: 20px;
-    margin-top: 10px;
-}
-`
-let BtnBox=styled.div`
-margin-top: 20px;
-margin-left: 54%;
+let WritingWrap = styled.div`
+  width: 100%;
+  text-align: left;
 
-
-& .next{
-    background-color: #FFBD12;
+  margin-left: 100px;
+  & h3 {
+    margin-top: 40px;
+    margin-left: 20px;
+  }
+`;
+let Introdution = styled.div`
+  & input {
+    width: 80%;
+    height: 5em;
     border: none;
-    color: white;
-    width: 100px;
-    height: 30px;
+    background-color: #f5f5f5;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2), 8px 5px 2px rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+    resize: none;
+    padding: 5px;
+    padding-left: 20px;
+    font-size: 20px;
+    margin-top: 10px;
+  }
+  & input::placeholder {
+    font-size: 15px;
+  }
+  & input:focus {
+    outline: 2px solid green;
+  }
+`;
+let MainSubject = styled.div`
+  & input {
+    width: 80%;
+    height: 6em;
+    border: none;
+    background-color: #f5f5f5;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2), 8px 5px 2px rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+    resize: none;
+    padding: 5px;
+    font-size: 20px;
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+  & input::placeholder {
+    font-size: 15px;
+  }
+  & input:focus {
+    outline: 2px solid green;
+  }
+`;
+let Conclusion = styled.div`
+  & input {
+    width: 80%;
+    height: 7em;
+    border: none;
+    background-color: #f5f5f5;
+    box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2), 8px 5px 2px rgba(0, 0, 0, 0.02);
+    border-radius: 10px;
+    resize: none;
+    padding: 5px;
+    font-size: 20px;
+    margin-top: 10px;
+    padding-left: 20px;
+  }
+  & input::placeholder {
+    font-size: 15px;
+  }
+  & input:focus {
+    outline: 2px solid green;
+  }
+`;
+let BtnBox = styled.div`
+  margin-top: 20px;
+  margin-left: 59%;
+  display: flex;
+  & div {
+    color: black;
+    width: 130px;
+    height: 40px;
     font-size: 18px;
     border-radius: 5px;
-}
-`
-let SaveBox=styled.div`
-display: flex;
-justify-content: space-between;
-align-items: flex-end
-
-`
-let Save=styled.button`
-background-color: #00BF2A;
-border: none;  
-color: white;
-width: 80px;
-height: 20px;
-font-size: 12px;
-border-radius: 5px;
-margin-right: 200px;
-`
+    margin-left: 30px;
+    padding-top: 6px;
+  }
+  & .next1 {
+    border: 1px solid black;
+    cursor: pointer;
+  }
+  & .next2 {
+    cursor: pointer;
+    background-color: #05d0b8;
+    color: white;
+  }
+`;
+let SaveBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+`;

@@ -1,41 +1,39 @@
 import styled from "styled-components";
-import SuggestionList from "./suggestionList";
+import SuggestionList, { categoryTitle } from "./suggestionList";
 import rightArrow from '../../../asset/img/rightArrow.png'
 import { useReducer } from "react";
 import { Link } from "react-router-dom";
 import {InputReducer} from "../../../reducer/inputReducer";
 import { next } from "../../../api/api";
+import { useSelector } from "react-redux";
 
-export let ment = {}
-function SubmitBox({recoList,suggestion }) {
-    // const [inputValue,setInputValue]=useState('')
+
+function SubmitBox({recoList,suggestion,inputText}) {
+   
     let Subject;
-    
-  const [state,dispatch]=useReducer(InputReducer,{value:''})
- ment = state;
-//   console.log('ment값',ment)
-// console.log('바뀐state값',state.value)
-// console.log('바뀐state값',typeof(state.value))
+
+
 const ClickNext=()=>{
 
-  Subject=state.value
+  Subject=inputText
   console.log("Subject",Subject)
   next(Subject)
 }
   return (
-    <SubmitBoxWrap>
+    <SubmitBoxContents>
       <CategorytInput
         type="text"
-        placeholder={(state.value=='')?"카테고리 속 주제를 선택해주세요":state.value}
+        placeholder={categoryTitle}
         class="categoryInput"
       />
       <Link to='/writeMain'><ArrowImg src={rightArrow} onClick={ClickNext} alt="" /></Link>
-      <SuggestionList dispatchValue={dispatch} recoList={recoList} suggestion={suggestion}  />
-    </SubmitBoxWrap>
+      <SuggestionList  recoList={recoList} suggestion={suggestion}  />
+    </SubmitBoxContents>
   );
 }
 export default SubmitBox;
-let SubmitBoxWrap = styled.div`
+
+let SubmitBoxContents = styled.div`
   text-align: center;
   & > img {
     position: relative;

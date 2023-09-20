@@ -3,11 +3,14 @@ import RecommendList from "./component/recommendList/recommendList";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import getSubject from "../../api/api";
+import { useDispatch } from "react-redux";
 
 function MainIndex() {
+  const disptch=useDispatch()
   const navigate = useNavigate();
   const clickStart = () => {
     navigate("/writePage");
+    disptch({type:'FLAG',payload:true})
   };
   // useEffect(()=>{
   //   getSubject().then((res)=>{
@@ -18,16 +21,20 @@ function MainIndex() {
     <Main>
       <MainWrap>
         <MainBanner>
+          <h1>Meta Training</h1>
           <p>
-            메타인지 향상을 위한 첫걸은
+            메타인지 향상을 위한 첫걸음
             <br />
             쉽고 재미있는 글쓰기, 메타 트레이닝과 함께
           </p>
           <button onClick={clickStart}>시작하기</button>
         </MainBanner>
-        <img src="https://media.discordapp.net/attachments/1148477775062249534/1151462800028352532/images.png?width=799&height=600" alt="" />
+        <img
+          src="https://media.discordapp.net/attachments/1148477775062249534/1151462800028352532/images.png?width=799&height=600"
+          alt=""
+        />
       </MainWrap>
-      <Contents>
+      {/* <Contents>
         <ContetnHeader>
           <div>오늘의 주제</div>
           <p>과학</p>
@@ -36,39 +43,45 @@ function MainIndex() {
         <div>
           <RecommendList />
         </div>
-      </Contents>
+      </Contents> */}
     </Main>
   );
 }
 export default MainIndex;
-let Main=styled.main`
-display: grid;
-grid-template-rows: 50% 50%;
-`
-
+let Main = styled.main`
+  display: grid;
+  background-color: #05d0b8;
+`;
 
 let MainWrap = styled.div`
   display: flex;
-  background-color: #a2d4f7;
+  align-items: flex-start;
   justify-content: space-around;
-  align-items: center;
+ 
+  margin-top:150px;
  & >img{
-  width:500px;
-  height:300px;
+  width:550px;
+  height:450px;
 
  
 `;
 let MainBanner = styled.div`
   text-align: center;
-  font-size: 25px;
-  margin-left: 5%;
-  margin-top: 40px;
+  font-size: 35px;
+
+  & h1 {
+    margin-bottom: 50px;
+  }
+  & p {
+    font-weight: bold;
+    line-height: 50px;
+  }
   & button {
     width: 150px;
-    height: 40px;
+    height: 50px;
     border: none;
-    font-size: 20px;
-    background-color: #428cfc;
+    font-size: 23px;
+    background-color: black;
     color: white;
     border-radius: 5px;
 

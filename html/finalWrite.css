@@ -8,20 +8,21 @@
   a {
     text-decoration: none;
     color: black;
-  }
+    background-color: transparent;
 
-  .container{
+  }
+ .container{
     height: 100vh;
     display: grid;
     /* grid-template-columns: 1fr 4fr 1fr; */
     grid-template-rows: 0.5fr 4fr 0.5fr;
- 
+cursor: po;
 }
 header{
     height: 100%;
 text-align: center;
 background-color: #A2D4F7;
-
+border-bottom: 1px solid black;
 display: grid;
 grid-template-columns: 1fr 4fr 1fr;
 align-items: center;

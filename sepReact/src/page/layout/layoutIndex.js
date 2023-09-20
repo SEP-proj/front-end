@@ -11,7 +11,7 @@ function Layout({children}){
 
             {children}
        
-        <Footer/>
+        {/* <Footer/> */}
         </Container>
         </>
     )
@@ -21,5 +21,5 @@ let Container=styled.div`
 height: 100vh;
 display: grid;
 
-grid-template-rows: 0.5fr 4fr 0.5fr;
+grid-template-rows: 0.5fr 5fr ;
 `

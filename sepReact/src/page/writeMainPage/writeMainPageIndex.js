@@ -7,88 +7,59 @@ import { useEffect, useReducer, useState } from "react";
 import LightChatBot from "./componenet/lightChatBot";
 import { InputReducer } from "../../reducer/inputReducer";
 import { useSelector } from "react-redux";
+import FinalContent from "../finalWritePage/componenet/finalContent";
+import FinalWritePageIndex from "../finalWritePage/finalWritePageIndex";
 
-let flag = false;
-let intervalTest;
 
-// function onChangeIntro() {
-//   if (flag) {
-//     clearInterval(intervalTest);
-
-//     console.log("interver ㄲ트");
-
-//     flag = false;
-
-//     return;
-//   }
-//   setTimeout(() => {
-//     intervalTest = setInterval(() => {
-//       console.log("1초");
-//     }, 1000);
-//   }, 2000);
-
-//   flag = true;
-// }
-// setTimeout(() => {
-
-// tm=  setInterval(() => {
-//   console.log('set light')
-//     setLight(!light)
-//   }, 1000);
-// }, 6000);}
 
 function WriteMainPageIndex() {
   const [light, setLight] = useState(false);
-  let tm = null;
-  // const onChangeIntro=(e)=>{
-  // clearInterval(tm)
-  // }
-  //  useEffect(()=>{
 
-  //  },[])
 const [chatText,setChatText]=useState("")
+let inputText=useSelector((state)=>state.inputReducer)
+let category=useSelector((state)=>state.categoryReducer)
+const [next,setNext]=useState(false)
+const WritingText = useSelector((state) => state.writingsReducer);
   return (
     <Main>
-      <MainWrap>
+      {next?<FinalWritePageIndex category={category}/>:<MainWrap>
         <div></div>
         <div>
           <Subject>
-            <p>사회</p>
-            <span>{ment.value}</span>
+            <p>{category}</p>
+            <span>{inputText}</span>
           </Subject>
-          <Writing
-            // onChangeIntro={onChangeIntro}
-       
-          />
+          <Writing setNext={setNext} WritingText={WritingText}/>
         </div>
-        <LightChatBot light={light} setLight={setLight} chatText={chatText}/>
-      </MainWrap>
-      <ChatContainer light={light} setChatText={setChatText}/>
+        <LightChatBot light={light} setLight={setLight} />
+      </MainWrap>}
+      <ChatContainer light={light} chatText={chatText} setChatText={setChatText} />
     </Main>
   );
 }
 export default WriteMainPageIndex;
 let Main = styled.main`
   display: grid;
-  grid-template-columns: 80% 20%;
+  grid-template-columns: 70% 30%;
 `;
 let MainWrap = styled.div`
   display: grid;
   grid-template-columns: 10% 80% 10%;
   text-align: center;
-  padding-left: 10%;
+
 `;
 let Subject = styled.div`
   display: flex;
-  margin-top: 80px;
+  margin-top: 50px;
   margin-left: 100px;
   & > p {
-    background-color: pink;
+    background-color:#05D0B8;
     color: white;
-    width: 80px;
-    height: 30px;
+    width: 120px;
+    height: 40px;
     font-size: 20px;
-    border-radius: 10px;
+    border-radius: 20px;
+   padding-top:6px;
   }
   & > span {
     margin-left: 20px;
