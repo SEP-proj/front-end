@@ -3,39 +3,52 @@ import ChatContainer from "../../commend/chatContainer";
 import FinalTitle from "./componenet/finalTitle";
 import FinalContent from "./componenet/finalContent";
 import { ment } from "../writePage/component/submitBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { completeText, getRecommendTitle } from "../../api/api";
 import refresh from '../../asset/img/refresh.png'
 function FinalWritePageIndex({ category }) {
-  const [title, setTitle] = useState("");
+
   const [flag,setFlag]=useState(false);
   const dispatch=useDispatch();
   let inputText = useSelector((state) => state.inputReducer);
   const navigation=useNavigate();
+  const [content,setContent]=useState('')
+
   const complete=()=>{
     navigation('/postDetail')
-    completeText(submit,bchecked).then((res)=>{
+    completeText(submit,content,bchecked).then((res)=>{
       console.log(res)
+      console.log(content)
+       let str=content;
+            str = str.replace(/\n/g ,'<br/>');
+      dispatch({type:'SUBMITTEXTCONTENT',payload:str})
     })
   }
+
   const submit=useSelector((state)=>state.submitWrite);
   const [bchecked,setbchecked]=useState(false);
   const checkHandler=()=>{
     
     setbchecked(!bchecked);
   }
+
   const clickRecommend=()=>{
+    console.log(submit)
     getRecommendTitle(submit).then((res)=>{
-      console.log(res.data.title)
+      console.log(res)
       dispatch({
         type: "SUBMITTEXT",
-        payload: {  title: "새로운submitTest중입니다" },
+        payload: {content:submit.content  ,title: "새로운submitTest중입니다" },
       });
 setFlag(true)
     })
   }
+
+  useEffect(()=>{
+    
+  },[])
   return (
     <MainWrap>
       <div></div>
@@ -57,7 +70,7 @@ setFlag(true)
         <img src={refresh} alt="" />
       </button>
     </FinalTitleWrap>
-        <FinalContent setTitle={setTitle} submit={submit} />
+        <FinalContent content={content} submit={submit} setContent={setContent} />
         <FinalSubmit>
           <div>
             공개하기

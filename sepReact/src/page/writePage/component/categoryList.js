@@ -4,80 +4,90 @@ import { getCategoryList, getClickSubject } from "../../../api/api";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function CategoryList({setRecoList,setSuggestion,category}){
-let test=[{
-    title:"title"
-}]
-const dispatch=useDispatch()
-    const inputTitle=(e)=>{
- 
-        
-    dispatch({type:'CATEGORY',payload:e.target.innerText});
-        setSuggestion(true)
-        console.log(category)
-        getClickSubject(category).then((res)=>{
-            console.log('writePagrres:',res.data.body.subjects)
-            // setRecoList(res.data.body.subjects);
-            setRecoList(test);
-            
-          
-    })
-    }
-  
- const categoryList=[
-    {
-        title:'일상'
-    },
-    {
-        title:'사회'
-    },
-    {
-        title:'과학'
-    },
-    {
-        title:'스포츠'
-    },
-    {
-        title:'문화/예술'
-    },
-    {
-        title:'환경'
-    },
-    
- ]
-    return(
-        <div>
-      
-        <CategortUl >
-            {categoryList.map((list)=><li onClick={inputTitle}><p>{list.title}</p></li>)}
+function CategoryList({ }) {
 
-            
-        </CategortUl>
-      </div>
-    )
+  let test = [
+    {
+      title: "title",
+    },
+  ];
+  const dispatch = useDispatch();
+
+  const inputTitle = (e) => {
+    
+    
+    
+    getClickSubject(e.target.innerText).then((res) => {
+        console.log(res.data.body.subjects)
+      
+        dispatch({type:'category/CATEGORY',payload:e.target.innerText});
+        dispatch({type:'recommend/RECOMMNEDLIST',payload:res.data.body.subjects})
+
+    });
+
+    
+  };
+
+  const categoryList = [
+    {
+      title: "일상",
+      category: "DAILY",
+    },
+    {
+      title: "사회",
+      category: "SOCIETY",
+    },
+    {
+      title: "과학",
+      category: "SCIENCE",
+    },
+    {
+      title: "스포츠",
+      category: "SPORTS",
+    },
+    {
+      title: "문화/예술",
+      category: "CULTURE",
+    },
+    {
+      title: "환경",
+      category: "ENVIRONMENT",
+    },
+  ];
+
+  return (
+    <div>
+      <CategortUl>
+        {categoryList.map((list) => (
+          <li onClick={inputTitle}>
+            <p>{list.title}</p>
+          </li>
+        ))}
+      </CategortUl>
+    </div>
+  );
 }
 export default CategoryList;
 
-let CategortUl=styled.ul`
-margin-top: 20px;
-width: 800px;
-display: flex;
-justify-content: space-between;
+let CategortUl = styled.ul`
+  margin-top: 20px;
+  width: 800px;
+  display: flex;
+  justify-content: space-between;
 
-& >li{
-    
+  & > li {
     background-color: white;
-    width:120px;    
-    border:1px solid black;
+    width: 120px;
+    border: 1px solid black;
     height: 40px;
-    text-align:center;
+    text-align: center;
     border-radius: 10px;
     font-size: 18px;
     color: black;
-    cursor: pointer; 
-}
+    cursor: pointer;
+  }
 
-& >li>p{
-    margin-top:6px
-}
-`
+  & > li > p {
+    margin-top: 6px;
+  }
+`;

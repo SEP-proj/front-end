@@ -1,33 +1,56 @@
 import styled from "styled-components";
-import SuggestionList, { categoryTitle } from "./suggestionList";
+
 import rightArrow from '../../../asset/img/rightArrow.png'
-import { useReducer } from "react";
+
 import { Link } from "react-router-dom";
-import {InputReducer} from "../../../reducer/inputReducer";
+
 import { next } from "../../../api/api";
-import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 
-function SubmitBox({recoList,suggestion,inputText}) {
-   
-    let Subject;
 
+function SubmitBox({recoList,suggestion}) {
+  let changeInputplacehold = useSelector((state) => state.inputText);
+  let recommendList=useSelector((state)=>state.recommendList)
+const [inputWrite,setInputWrtie]=useState('')
+const dispatch=useDispatch();
+const changeInput=(e)=>{
+  setInputWrtie(e.target.value)
+
+}
 
 const ClickNext=()=>{
+  console.log('직접쓴',inputWrite)
+  
+  next(changeInputplacehold).then((res)=>{
+    console.log(res)
+    dispatch({type:'input/INPUTTEXT',payload:inputWrite})
 
-  Subject=inputText
-  console.log("Subject",Subject)
-  next(Subject)
+  })
 }
+const valueOnclick = (e) => {
+  console.log(e.target.innerText);
+
+  dispatch({type:'input/INPUTTEXT',payload:e.target.innerText});
+  console.log("inputListText로바뀐",changeInputplacehold)
+};
   return (
     <SubmitBoxContents>
       <CategorytInput
         type="text"
-        placeholder={categoryTitle}
-        class="categoryInput"
+        placeholder={changeInputplacehold}
+  
+        onChange={changeInput}
       />
       <Link to='/writeMain'><ArrowImg src={rightArrow} onClick={ClickNext} alt="" /></Link>
-      <SuggestionList  recoList={recoList} suggestion={suggestion}  />
+      <div>
+      <SuggestionUl >
+        {recommendList.map((list) => (
+          <li onClick={valueOnclick}>{list}</li>
+        ))}
+      </SuggestionUl>
+    </div>
     </SubmitBoxContents>
   );
 }
@@ -61,3 +84,21 @@ left: -50px;
 width: 30px;
 cursor: pointer;
 `
+
+const SuggestionUl = styled.ul`
+  text-align: left;
+  /* display: ${(props) => (props.suggestion ? "block" : "none")}; */
+  display: block;
+  width: 450px;
+  margin: 40px auto;
+  border: 1px solid black;
+  border-radius: 10px;
+  & > li {
+    list-style: square;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 30px;
+    margin-left: 50px;
+    cursor: pointer;
+  }
+`;

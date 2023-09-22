@@ -21,6 +21,7 @@ function MainIndex() {
     <Main>
       <MainWrap>
         <MainBanner>
+          {/* <h1>Meta Training</h1> */}
           <h1>Meta Training</h1>
           <p>
             메타인지 향상을 위한 첫걸음
@@ -63,8 +64,8 @@ let MainWrap = styled.div`
   width:550px;
   height:450px;
 
- 
-`;
+ }
+`
 let MainBanner = styled.div`
   text-align: center;
   font-size: 35px;
@@ -77,6 +78,7 @@ let MainBanner = styled.div`
     line-height: 50px;
   }
   & button {
+    cursor: pointer;
     width: 150px;
     height: 50px;
     border: none;
@@ -84,7 +86,7 @@ let MainBanner = styled.div`
     background-color: black;
     color: white;
     border-radius: 5px;
-
+    font-weight: bold;
     margin-top: 5%;
   }
   & img {

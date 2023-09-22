@@ -2,16 +2,15 @@
 import Header from "./header/header";
 import Footer from "./footer/footer";
 import styled from "styled-components";
+import { Outlet } from "react-router-dom";
 
-function Layout({children}){
+function Layout({authenticated,setAuthenticated}){
     return(
         <>
         <Container>
-        <Header/>
+        <Header authenticated={authenticated} setAuthenticated={setAuthenticated}/>
 
-            {children}
-       
-        {/* <Footer/> */}
+        <Outlet/>
         </Container>
         </>
     )

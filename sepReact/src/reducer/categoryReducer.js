@@ -1,13 +1,22 @@
-const initalState = "";
 
-export default function categoryReducer(state = initalState, action) {
-  console.log("넘어오는action", action);
-  switch (action.type) {
-    case "CATEGORY":
-      return action.payload;
-    case "SEARCH_CATEHORY" :
-        return action.payload;
-    default:
-      return state;
-  }
-}
+import {createActions,handleActions} from 'redux-actions'
+
+const initalState=''
+ 
+
+export const CATEGORY='category/CATEGORY'
+
+export const actions=createActions({
+
+    [CATEGORY]:()=>{}
+})
+ 
+const categoryReducer=handleActions({
+    
+    [CATEGORY]:(state,{payload})=>{
+        console.log("CATEGORY TYPE넘어온",payload)
+        return payload;
+    },
+},initalState
+)
+export default categoryReducer;

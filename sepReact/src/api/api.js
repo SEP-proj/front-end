@@ -1,105 +1,132 @@
 import axios from 'axios'
+import { request } from './apiutil';
 
 const baseUrl = "http://192.168.0.48:8080"
 
-export async function getClickSubject(category){
-    console.log("category" + category)
-    let subject = await axios.post(baseUrl+"/v1/post/recommend/subject",{
+
+export  function getClickSubject(category){
+   console.log(category)
+   return request({
+      
+      url:baseUrl+"/v1/post/recommend/subject",
+      method:'post',
+      body: JSON.stringify({
         category:category
-    })
-
-
-    return subject.data;
-   
-} 
-
-
-export async function saveAll(WritingText){
-  let concat=await axios.put(baseUrl+"/v1/post/concat",{
+      }) 
+   })
+ }
+ export function next(Subject){
   
-    id:1,
-    introduction:WritingText.intro,
-    body:WritingText.body,
-        conclusion:WritingText.conclu
-    })
+     return request({
+      url:baseUrl + "/v1/post",
+      method:'post',
+      body:JSON.stringify({
+         title:'스포츠 복장에 대한 성차별',      
+         memberId: 1
+      })
+     })
+  
+  }
  
-  return concat.data;
-}
-export async function saveIntro(Intro){
-   let intro=await axios.put(baseUrl+"/v1/post/introduction",{
-    id:1,
-    introduction:Intro
-   
-    })
-    
-  return intro.data;
-}
-export async function saveMainSub(MainSub){
-   let main=await axios.put(baseUrl+"/v1/post/body",{
-    id:1,
-   
-        body:MainSub,
-       
-    })
-    
-  return main.data;
-}
-export async function saveConclu(Conclu){
-   let conclu=await axios.put(baseUrl+"/v1/post/conclusiont",{
-    id:1,
-    
-   
-        conclusion:Conclu
-    })
-    
-  return conclu.data;
-}
 
-
-export async function next(Subject){
-  await axios.post(baseUrl + "/v1/post",{
-       title:Subject,
-       category:"SOCIETY",
-       memberId: 1
+export function saveAll(WritingText){
+   return request({
+      url:baseUrl+"/v1/post/concat",
+      method:'put',
+      body:JSON.stringify({
+         id:1,
+         introduction:WritingText.intro,
+         body:WritingText.body,
+             conclusion:WritingText.conclu
+      })
    })
+}
 
-}
-export async function getChatText(WritingText,chatText){
- let Chat= await axios.post(baseUrl + "/v1/post/chat/help",{
-  
-    introduction:WritingText.intro,
-    body:WritingText.body,
-    conclusion:WritingText.conclu,
-    user_input:chatText
+export function getChatText(WritingText,chatText){
+   return request({
+      url:baseUrl + '/v1/post/chat/help',
+      method:'post',
+      body:JSON.stringify({
+         introduction:WritingText.intro,
+         body:WritingText.body,
+         conclusion:WritingText.conclu,
+         user_input:chatText
+      })
    })
-return Chat.data.data.body.answer;
 }
+export function getChatRobot(WritingText){
+   return request({
+      url:baseUrl + '/v1/post/chat/question',
+      method:'post',
+      body:JSON.stringify({
+         introduction:WritingText.intro,
+         body:WritingText.body,
+         conclusion:WritingText.conclu,
+         user_input:chatText
+      })
+   })
+}
+export function getChatFeedback(WritingText,chatText){
+   return request({
+      url:baseUrl + '/v1/post/chat/help',
+      method:'post',
+      body:JSON.stringify({
+         introduction:WritingText.intro,
+         body:WritingText.body,
+         conclusion:WritingText.conclu,
+         user_input:chatText
+      })
+   })
+}
+
+
+
 export async function getSendText(chatText){
- let Chat= await axios.post(baseUrl + "/v1/post/chat/help",{
-  
+ 
+return request({
+   url:baseUrl + "/v1/post/chat/help",
+   method:'post',
+   body:JSON.stringify({
+user_input:chatText
+   })
+})
+}
+export async function getRecommendTitle(submit){
 
-    user_input:chatText
-   })
-return Chat.data.data.body.answer;
-}
-export async function getRecommendTitle(){
- let Title= await axios.get(baseUrl + "/v1/post/recommend/title",{
-    title:""
-   
-   })
-return Title.data;
-}
-export async function completeText(submit,bchecked){
- let Text= await axios.get(baseUrl + "/v1/post/result",{
-    id:1,
-    title:submit.title,
-    content:submit.content,
-    published:bchecked
-   
-   })
-return Text.data;
-}
-export async function getCommunityList(){
+return request({
+   url:baseUrl + "/v1/post/recommend/title",
+   method:'post',
+   body:JSON.stringify({
 
-return ""
+      content:submit.content
+   })
+})
+}
+export async function completeText(submit,content,bchecked){
+console.log(submit.title)
+console.log(content)
+console.log(bchecked)
+return request({
+   url:baseUrl + "/v1/post/final",
+   method:'put',
+   body:JSON.stringify({
+      id:1,
+      title:submit.title,
+      content:content,
+      published:bchecked
+   })
+})
+}
+export async function getCommunityList(submit,bchecked){
+
+return request({
+   url:baseUrl + "/v1/post/result",
+   method:'get',
+   body:JSON.stringify({
+      id:1,
+      title:submit.title,
+      content:submit.content,
+      published:bchecked
+   })
+})
 }

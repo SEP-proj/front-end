@@ -1,19 +1,22 @@
 
+import {createActions,handleActions} from 'redux-actions'
 
 const initalState=''
  
 
+export const INPUTTEXT='input/INPUTTEXT'
+
+export const actions=createActions({
+
+    [INPUTTEXT]:()=>{}
+})
  
- export default function inputReducer(state=initalState,action){
-     console.log('넘어오는action',action)
- switch(action.type){
-     case 'INPUTTEXT':
-         
-         return action.payload
-         
-         
- 
-     default : return state;
- }
- 
- }
+const inputReducer=handleActions({
+    
+    [INPUTTEXT]:(state,{payload})=>{
+        console.log("INPUTTEXT TYPE넘어온",payload)
+        return payload;
+    },
+},initalState
+)
+export default inputReducer;
