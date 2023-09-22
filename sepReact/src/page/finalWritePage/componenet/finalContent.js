@@ -3,28 +3,31 @@ import { useEffect, useState } from "react";
 import { saveAll } from "../../../api/api";
 import { useSelector } from "react-redux";
 
-function FinalContent({ submit }) {
-
-
+function FinalContent({ submit,setContent,content }) {
  
 
-  console.log('합쳐서 가져온 글',submit)
+useEffect(()=>{
+  setContent(submit.content)
+},[])
+const submitChange=(e)=>{
+setContent(e.target.value)
+
+}
   return (
     <>
-      <FinalContentWrap>
-        {/* {submit.content} */}
-        {submit.content.split("<br/>").map((line) => (
-          <>
-            {line}
-            <br />
-          </>
-        ))}
+      <FinalContentWrap value={content} onChange={submitChange}>
+      {/* {submit.content.split("<br/>").map((line) => (
+  <>
+    {line}
+    <br /> */}
+  {/* </> */}
+{/* ))} */}
       </FinalContentWrap>
     </>
   );
 }
 export default FinalContent;
-let FinalContentWrap = styled.p`
+let FinalContentWrap = styled.textarea `
   margin-top: 20px;
  
  

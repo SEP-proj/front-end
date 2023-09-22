@@ -1,25 +1,57 @@
 import Layout from "./page/layout/layoutIndex";
 
-import {BrowserRouter} from 'react-router-dom'
-import './App.css'
-import Routing from "./route/routings";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
 
-
+import MainIndex from "./page/mainpage/mainIndex";
+import WrtiePageIndex from "./page/writePage/writePageIndex";
+import WriteMainPageIndex from "./page/writeMainPage/writeMainPageIndex";
+import FinalWritePageIndex from "./page/finalWritePage/finalWritePageIndex";
+import PostDetail from "./postDetail/postDetail";
+import Community from "./page/community/community";
+import OAuth2RedirectHandler from "./api/OAuth2Redirct";
+import { getCurrentUser } from "./api/apiutil";
+import { useEffect, useState } from "react";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "./api/constants";
 
 function App() {
-  const clientId='775405737077-58i2affkch68c6ho9q8np94o1hmkmlt6.apps.googleusercontent.com'
+  const [authenticated,setAuthenticated]=useState(false)
+  const [curerentUser,setCurrentUser]=useState(null)
+const loadCurrentlyLoggedInUser=()=> {
+    getCurrentUser()
+    .then(response => {
+      console.log(response)
+       setAuthenticated(true);
+      
+    }).catch(error => {
+      console.error(error)
+    });    
+  }
+
+ const  componentDidMount=()=> {
+    this.loadCurrentlyLoggedInUser();
+  }
+  useEffect(()=>{
+    if(localStorage.getItem(ACCESS_TOKEN)){
+      loadCurrentlyLoggedInUser();
+    }
+  },[])
 
   return (
- <BrowserRouter>
-  
-    <Layout>
-   <Routing />
-   </Layout>
-  
-   
-   </BrowserRouter>
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout  authenticated={authenticated} setAuthenticated={setAuthenticated}/>}>
+          <Route path="/" element={<MainIndex />}/>
+          <Route path="writePage" element={<WrtiePageIndex />}/>
+          <Route path="writeMain" element={<WriteMainPageIndex />}/>
+          <Route path="finalWrite" element={<FinalWritePageIndex />}/>
+          <Route path="postDetail" element={<PostDetail />}/>
+          <Route path="community" element={<Community />}/>
+          <Route path="oauth2/redirect" element={<OAuth2RedirectHandler/>}/>
+          </Route>
 
- 
+        </Routes>
+    </BrowserRouter>
   );
 }
 

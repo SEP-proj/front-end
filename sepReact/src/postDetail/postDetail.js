@@ -6,6 +6,7 @@ function PostDetail() {
   let inputText = useSelector((state) => state.inputReducer);
   let category = useSelector((state) => state.categoryReducer);
   const submit = useSelector((state) => state.submitWrite);
+  console.log(submit.content)
   return (
     <Main>
       <div></div>
@@ -22,13 +23,13 @@ function PostDetail() {
           <span>{submit.title}</span>
         </FinalTitleWrap>
         <FinalContentWrap>
-        {submit.content}
-        {/* {submitText.split("<br/>").map((line) => (
+
+        {submit.content.split("<br/>").map((line) => (
           <>
             {line}
             <br />
           </>
-        ))} */}
+        ))}
       </FinalContentWrap>
       </div>
       <div></div>

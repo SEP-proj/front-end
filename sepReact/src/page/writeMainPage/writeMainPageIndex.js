@@ -15,11 +15,11 @@ import FinalWritePageIndex from "../finalWritePage/finalWritePageIndex";
 function WriteMainPageIndex() {
   const [light, setLight] = useState(false);
 
-const [chatText,setChatText]=useState("")
+
 let inputText=useSelector((state)=>state.inputReducer)
 let category=useSelector((state)=>state.categoryReducer)
 const [next,setNext]=useState(false)
-const WritingText = useSelector((state) => state.writingsReducer);
+
   return (
     <Main>
       {next?<FinalWritePageIndex category={category}/>:<MainWrap>
@@ -29,11 +29,11 @@ const WritingText = useSelector((state) => state.writingsReducer);
             <p>{category}</p>
             <span>{inputText}</span>
           </Subject>
-          <Writing setNext={setNext} WritingText={WritingText}/>
+          <Writing setNext={setNext} />
         </div>
         <LightChatBot light={light} setLight={setLight} />
       </MainWrap>}
-      <ChatContainer light={light} chatText={chatText} setChatText={setChatText} />
+      <ChatContainer light={light}/>
     </Main>
   );
 }

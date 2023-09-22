@@ -3,7 +3,7 @@ import blackChatBot from '../../../asset/img/blackChatBot.png'
 import whiteChatBot from '../../../asset/img/whiteChatBot.png'
 import chatBot from '../../../asset/img/chatbot.png'
 import { useRef, useState } from "react";
-import { getChatText } from "../../../api/api";
+import { getChatRobot, getChatText } from "../../../api/api";
 import { Conclu, Intro, MainSub } from "./writing";
 import { useSelector } from "react-redux";
 function LightChatBot({setLight}){
@@ -16,19 +16,12 @@ function LightChatBot({setLight}){
   
     const [openModal,setOpenModal]=useState(false);
     const WritingText = useSelector((state) => state.writingsReducer);
-  
+    
   
     const clickChat=()=>{
-        setShowImg(false)
-        getChatText(WritingText).then((res)=>{
-            console.log(res);
-            let str=res;
-            str = str.replace(/\n/g ,'<br/>');
-    
-          
-            
-            setLight(res)
-        })
+       getChatRobot(WritingText).then((res)=>{
+        console.log(res)
+       })
     }
     return(
         <div>

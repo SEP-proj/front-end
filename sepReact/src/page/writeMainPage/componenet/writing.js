@@ -5,18 +5,17 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { saveAll } from "../../../api/api";
 
-function Writing({ setNext,WritingText }) {
+function Writing({ setNext }) {
   const intro = useRef();
   const mainSub = useRef();
   const conclu = useRef();
 
- 
+  const WritingText = useSelector((state) => state.writingsReducer);
 
   const dispatch = useDispatch();
   const clickNext = () => {
     console.log("클릭발생");
-
-    setNext(true);
+setNext(true)
     dispatch({
       type: "WRITING",
       payload: {
@@ -40,7 +39,7 @@ function Writing({ setNext,WritingText }) {
       console.log("saveAll 동작 확인");
       dispatch({
         type: "SUBMITTEXT",
-        payload: { content: str, title: res.data.title },
+        payload: { content: res.data.content, title: res.data.title },
       });
     });
   };
@@ -65,7 +64,7 @@ function Writing({ setNext,WritingText }) {
       console.log("saveAll 동작 확인");
       dispatch({
         type: "SUBMITTEXT",
-        payload: { content: str, title: res.data.title },
+        payload: { content: res.data.content, title: res.data.title },
       });
     });
   };

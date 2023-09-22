@@ -7,10 +7,7 @@ import { useSelector } from "react-redux";
 import SubmitBox from "./component/submitBox";
 
 function WrtiePageIndex(){
-const [recoList,setRecoList]=useState([]);
-const [suggestion,setSuggestion]=useState(false);
-let category=useSelector((state)=>state.categoryReducer)
-let inputText = useSelector((state) => state.inputText);
+
     return(
      <Main>
         <div></div>
@@ -24,9 +21,9 @@ let inputText = useSelector((state) => state.inputText);
                 <span>보안 목적 드론의 카메라의 사생활 침해 문제</span>
 
               </Category>
-             <CategoryList setRecoList={setRecoList} setSuggestion={setSuggestion} recoList={recoList} category={category}/>
+             <CategoryList />
             </CategoryWrap>
-            <SubmitBox recoList={recoList} suggestion={suggestion} inputText={inputText}/>
+            <SubmitBox />
           </Wrap>
         </div>
         <div></div>
