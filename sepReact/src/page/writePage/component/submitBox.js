@@ -4,36 +4,48 @@ import rightArrow from '../../../asset/img/rightArrow.png'
 
 import { Link } from "react-router-dom";
 
-import { next } from "../../../api/api";
+import { next, recommendCategory } from "../../../api/api";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 
 
 function SubmitBox({recoList,suggestion}) {
-  let changeInputplacehold = useSelector((state) => state.inputText);
+  let changeInputplacehold = useSelector((state) => state.inputReducer);
   let recommendList=useSelector((state)=>state.recommendList)
+  let category=useSelector((state)=>state.categoryReducer)
 const [inputWrite,setInputWrtie]=useState('')
 const dispatch=useDispatch();
 const changeInput=(e)=>{
   setInputWrtie(e.target.value)
-
+  dispatch({type:'input/INPUTTEXT',payload:inputWrite})
 }
 
 const ClickNext=()=>{
   console.log('직접쓴',inputWrite)
   
-  next(changeInputplacehold).then((res)=>{
-    console.log(res)
-    dispatch({type:'input/INPUTTEXT',payload:inputWrite})
-
+if(category==''){
+  console.log('카테고리 값없음')
+  console.log(changeInputplacehold)
+  recommendCategory(changeInputplacehold).then((res)=>{
+    console.log(res.data.category)
+    dispatch({type:'user/USERID',payload:res.data.id})
+    dispatch({type:'category/CATEGORY',payload:res.data.category})
   })
+}else{
+console.log('카테고리 값있음')
+  next(changeInputplacehold,category).then((res)=>{
+    console.log(res.data)
+    dispatch({type:'user/USERID',payload:res.data.id})
+    dispatch({type:'input/INPUTTEXT',payload:res.data.title});
+  })
+}
 }
 const valueOnclick = (e) => {
   console.log(e.target.innerText);
 
   dispatch({type:'input/INPUTTEXT',payload:e.target.innerText});
-  console.log("inputListText로바뀐",changeInputplacehold)
+  
 };
   return (
     <SubmitBoxContents>

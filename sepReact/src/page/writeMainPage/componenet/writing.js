@@ -3,22 +3,23 @@ import { useReducer, useRef, useState } from "react";
 import styled from "styled-components";
 
 import { useDispatch, useSelector } from "react-redux";
-import { saveAll } from "../../../api/api";
+import { saveAll, updateSave } from "../../../api/api";
 
 function Writing({ setNext }) {
   const intro = useRef();
   const mainSub = useRef();
   const conclu = useRef();
-
+  let userId=useSelector((state)=>state.userReducer)
   const WritingText = useSelector((state) => state.writingsReducer);
 
   const dispatch = useDispatch();
   const clickNext = () => {
     console.log("클릭발생");
-setNext(true)
+
     dispatch({
       type: "WRITING",
       payload: {
+        
         intro: intro.current.value,
         body: mainSub.current.value,
         conclu: conclu.current.value,
@@ -29,7 +30,7 @@ setNext(true)
     //   type: "SUBMITTEXT",
     //   payload: { content: "submitTest완료", title: "submitTest중입니다" },
     // });
-    saveAll(WritingText).then((res) => {
+    saveAll(WritingText,userId).then((res) => {
       console.log(res);
 
       console.log(res.data.content);
@@ -39,12 +40,14 @@ setNext(true)
       console.log("saveAll 동작 확인");
       dispatch({
         type: "SUBMITTEXT",
-        payload: { content: res.data.content, title: res.data.title },
+        payload: { content: res.data.content, title: res.data.title.body.title },
       });
+      setNext(true)
     });
   };
 
   const clickSave = () => {
+    console.log('넘어온 userid',userId)
     dispatch({
       type: "WRITING",
       payload: {
@@ -54,19 +57,20 @@ setNext(true)
       },
     });
 
-    saveAll(WritingText).then((res) => {
-      console.log("saveALlRES", res);
+    updateSave(WritingText,userId)
+    // .then((res) => {
+    //   console.log("saveALlRES", res);
 
-      console.log(res.data.content);
-      let str = res.data.content;
-      str = str.replace(/\n/g, "<br/>");
+    //   console.log(res.data.content);
+    //   let str = res.data.content;
+    //   str = str.replace(/\n/g, "<br/>");
 
-      console.log("saveAll 동작 확인");
-      dispatch({
-        type: "SUBMITTEXT",
-        payload: { content: res.data.content, title: res.data.title },
-      });
-    });
+    //   console.log("saveAll 동작 확인");
+    //   dispatch({
+    //     type: "SUBMITTEXT",
+    //     payload: { content: res.data.content, title: res.data.title },
+    //   });
+    // });
   };
 
   return (

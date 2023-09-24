@@ -6,5 +6,9 @@ import headerReducer from "./headerReducer";
 import categoryReducer from "./categoryReducer";
 import recommendList from "./recommendList";
 import nextReducer from "./nextReducer";
-const rootReducer=combineReducers({nextReducer,submitWrite,inputReducer,writingsReducer,headerReducer,categoryReducer,recommendList})
+import userReducer from "./userReducer";
+const rootReducer=combineReducers({nextReducer,
+    submitWrite,
+    userReducer,
+    inputReducer,writingsReducer,headerReducer,categoryReducer,recommendList})
 export default rootReducer;

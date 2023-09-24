@@ -4,8 +4,7 @@ import { getCategoryList, getClickSubject } from "../../../api/api";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function CategoryList({ }) {
-
+function CategoryList({}) {
   let test = [
     {
       title: "title",
@@ -14,18 +13,14 @@ function CategoryList({ }) {
   const dispatch = useDispatch();
 
   const inputTitle = (e) => {
-    
-    
-    
     getClickSubject(e.target.innerText).then((res) => {
-        console.log(res.data.body.subjects)
-      
-        dispatch({type:'category/CATEGORY',payload:e.target.innerText});
-        dispatch({type:'recommend/RECOMMNEDLIST',payload:res.data.body.subjects})
-
+      console.log(res.data.body.subjects);
+      dispatch({ type: "category/CATEGORY", payload: e.target.innerText });
+      dispatch({
+        type: "recommend/RECOMMNEDLIST",
+        payload: res.data.body.subjects,
+      });
     });
-
-    
   };
 
   const categoryList = [

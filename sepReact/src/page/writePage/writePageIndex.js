@@ -2,12 +2,22 @@ import styled from "styled-components";
 import CategoryList from "./component/categoryList";
 import SuggestionList from "./component/suggestionList";
 
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import SubmitBox from "./component/submitBox";
 
 function WrtiePageIndex(){
+  let todaySubject=useRef()
+  let todayCategory=useRef()
 
+  const dispatch=useDispatch();
+  const today=()=>{
+
+    dispatch({type:'category/CATEGORY',payload:todayCategory.current.innerText});
+    dispatch({type:'input/INPUTTEXT',payload:todaySubject.current.innerText})
+
+   
+  }
     return(
      <Main>
         <div></div>
@@ -15,10 +25,10 @@ function WrtiePageIndex(){
           <Wrap>
             <h2>주제 선정</h2>
             <CategoryWrap>
-              <Category>
+              <Category onClick={today}>
                 <div>오늘의 주제</div>
-                <p>과학</p>
-                <span>보안 목적 드론의 카메라의 사생활 침해 문제</span>
+                <p ref={todayCategory}>과학</p>
+                <span ref={todaySubject}>보안 목적 드론의 카메라의 사생활 침해 문제</span>
 
               </Category>
              <CategoryList />
@@ -50,6 +60,7 @@ border-radius: 10px;
 padding: 45px;
 width: 900px;
 margin: 0 auto;
+cursor: pointer;
 `
 let Category=styled.div`
 display: flex;

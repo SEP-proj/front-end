@@ -6,9 +6,10 @@ import categoryReducer from './reducer/categoryReducer'
 import headerReducer from './reducer/headerReducer'
 import recommendList from './reducer/recommendList'
 import nextReducer from './reducer/nextReducer'
+import userReducer from './reducer/userReducer'
 export default configureStore({
     reducer:{
-nextReducer,
+nextReducer,userReducer,
         recommendList,submitWrite,inputReducer,writingsReducer,headerReducer,categoryReducer
     },
 })

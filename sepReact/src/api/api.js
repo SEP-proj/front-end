@@ -1,4 +1,4 @@
-import axios from 'axios'
+
 import { request } from './apiutil';
 
 const baseUrl = "http://192.168.0.48:8080"
@@ -15,29 +15,57 @@ export  function getClickSubject(category){
       }) 
    })
  }
- export function next(Subject){
-  
+ export function next(Subject,category){
+  console.log(Subject)
+  console.log(category)
      return request({
       url:baseUrl + "/v1/post",
       method:'post',
       body:JSON.stringify({
-         title:'스포츠 복장에 대한 성차별',      
+         category:'DAILY',
+         title:Subject,      
          memberId: 1
       })
-     })
+     }) 
   
   }
  
+  export async function recommendCategory(Subject){
 
-export function saveAll(WritingText){
+   return request({
+      url:baseUrl + "/v1/post/test",
+      method:'post',
+      body:JSON.stringify({
+         
+         title:Subject,      
+         memberId: 1
+      })
+   })
+   }
+   
+export function saveAll(WritingText,userId){
    return request({
       url:baseUrl+"/v1/post/concat",
       method:'put',
       body:JSON.stringify({
-         id:1,
+         id:userId,
          introduction:WritingText.intro,
          body:WritingText.body,
              conclusion:WritingText.conclu
+      })
+   })
+}
+export function updateSave(WritingText,userId){
+   console.log(WritingText)
+   console.log(userId)
+   return request({
+      url:baseUrl+"/v1/post/update",
+      method:'put',
+      body:JSON.stringify({
+         id:userId,
+         introduction:WritingText.intro,
+         body:WritingText.body,
+         conclusion:WritingText.conclu
       })
    })
 }
@@ -54,7 +82,7 @@ export function getChatText(WritingText,chatText){
       })
    })
 }
-export function getChatRobot(WritingText){
+export function getChatRobot(WritingText,chatText){
    return request({
       url:baseUrl + '/v1/post/chat/question',
       method:'post',
