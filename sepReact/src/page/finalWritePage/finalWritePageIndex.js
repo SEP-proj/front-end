@@ -8,6 +8,7 @@ import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { completeText, getRecommendTitle } from "../../api/api";
 import refresh from '../../asset/img/refresh.png'
+
 function FinalWritePageIndex({ category }) {
 
   const [flag,setFlag]=useState(false);
@@ -16,6 +17,7 @@ function FinalWritePageIndex({ category }) {
   const navigation=useNavigate();
   const [content,setContent]=useState('')
 
+  const submit=useSelector((state)=>state.submitWrite);
   const complete=()=>{
     navigation('/postDetail')
     completeText(submit,content,bchecked).then((res)=>{
@@ -23,11 +25,13 @@ function FinalWritePageIndex({ category }) {
       console.log(content)
        let str=content;
             str = str.replace(/\n/g ,'<br/>');
-      dispatch({type:'SUBMITTEXTCONTENT',payload:str})
+            dispatch({
+              type: "SUBMITTEXT",
+              payload: {content:str  ,title: submit.title },
+            });
     })
   }
 
-  const submit=useSelector((state)=>state.submitWrite);
   const [bchecked,setbchecked]=useState(false);
   const checkHandler=()=>{
     
@@ -37,17 +41,17 @@ function FinalWritePageIndex({ category }) {
   const clickRecommend=()=>{
     console.log(submit)
     getRecommendTitle(submit).then((res)=>{
-      console.log(res)
+      console.log(res.data.body)
       dispatch({
         type: "SUBMITTEXT",
-        payload: {content:submit.content  ,title: "새로운submitTest중입니다" },
+        payload: {content:submit.content  ,title: res.data.body.title },
       });
 setFlag(true)
     })
   }
 
   useEffect(()=>{
-    
+    console.log(submit)
   },[])
   return (
     <MainWrap>

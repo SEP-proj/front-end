@@ -5,8 +5,9 @@ import FinalContent from "../page/finalWritePage/componenet/finalContent";
 function PostDetail() {
   let inputText = useSelector((state) => state.inputReducer);
   let category = useSelector((state) => state.categoryReducer);
-  const submit = useSelector((state) => state.submitWrite);
-  console.log(submit.content)
+  const submit=useSelector((state)=>state.submitWrite);
+  console.log(submit.title)
+
   return (
     <Main>
       <div></div>

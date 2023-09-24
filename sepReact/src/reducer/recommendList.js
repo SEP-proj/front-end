@@ -1,6 +1,6 @@
 import {createActions,handleActions} from 'redux-actions'
 
-const initalState=["1.ssss","2.sdfs"]
+const initalState=[]
  
 export const RECOMMENDLIST='recommend/RECOMMNEDLIST'
 

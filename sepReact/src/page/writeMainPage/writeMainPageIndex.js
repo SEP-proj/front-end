@@ -5,9 +5,9 @@ import { ment } from "../writePage/component/submitBox";
 
 import { useEffect, useReducer, useState } from "react";
 import LightChatBot from "./componenet/lightChatBot";
-import { InputReducer } from "../../reducer/inputReducer";
+
 import { useSelector } from "react-redux";
-import FinalContent from "../finalWritePage/componenet/finalContent";
+
 import FinalWritePageIndex from "../finalWritePage/finalWritePageIndex";
 
 
@@ -16,8 +16,9 @@ function WriteMainPageIndex() {
   const [light, setLight] = useState(false);
 
 
-let inputText=useSelector((state)=>state.inputReducer)
+
 let category=useSelector((state)=>state.categoryReducer)
+let changeInputplacehold = useSelector((state) => state.inputReducer);
 const [next,setNext]=useState(false)
 
   return (
@@ -27,7 +28,7 @@ const [next,setNext]=useState(false)
         <div>
           <Subject>
             <p>{category}</p>
-            <span>{inputText}</span>
+            <span>{changeInputplacehold}</span>
           </Subject>
           <Writing setNext={setNext} />
         </div>

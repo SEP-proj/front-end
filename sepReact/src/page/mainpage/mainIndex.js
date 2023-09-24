@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import getSubject from "../../api/api";
 import { useDispatch } from "react-redux";
-
+import mainlogo from '../../asset/img/mainlogo.png'
 function MainIndex() {
   const disptch=useDispatch()
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ function MainIndex() {
           <button onClick={clickStart}>시작하기</button>
         </MainBanner>
         <img
-          src="https://media.discordapp.net/attachments/1148477775062249534/1151462800028352532/images.png?width=799&height=600"
+          src={mainlogo}
           alt=""
         />
       </MainWrap>
