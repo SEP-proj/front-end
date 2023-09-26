@@ -9,11 +9,11 @@
 
 #### 1) 카테고리 별 주제추천 기능
 카테고리 선택시 5개씩 주체 추천
-![drag drop](https://github.com/The-Dark-Nights/front-end/assets/96166174/229cd22f-bfd4-4684-9ffb-8c0daecab9b2)
+
 
 #### 2) 합쳐진 글 피드백
 서론,본론, 결론 작성후 완료를 하면 챗봇으로 글에 대한 피드백이 옴
-![md](https://github.com/The-Dark-Nights/front-end/assets/96166174/d62db665-e4e3-4637-889e-5e78aa1d2ed7)
+
 
 
 
