@@ -1,15 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import { getCommunityList } from "../../../api/api";
-import { Link } from "react-router-dom";
+import { getCommunityList, getPostDetail } from "../../../api/api";
+import { Link, useNavigate, useNavigation } from "react-router-dom";
 
-function Table() {
+function Table({clickCategoryList,setClickCategoryList}) {
+const postId=useRef()
+const navigation=useNavigate()
   useEffect(() => {
-    getCommunityList();
-    // .then((res)=>{
-    //     console.log(res)
-    // })
+    getCommunityList().then((res)=>{
+      console.log(res.data)
+  setClickCategoryList(res.data)
+    },[])
+
   }, []);
+  const clickList=()=>{
+
+ 
+    getPostDetail(postId.current.innerText).then((res)=>{
+      console.log(res)
+      navigation('/postDetail2',{state:{value:res.data}})
+    })
+  }
+  
   return (
     <Main>
       <div></div>
@@ -20,20 +32,24 @@ function Table() {
             <div class="title">제목</div>
             <div class="writer">작성자</div>
             <div class="date">작성일</div>
-            <div class="count">조회</div>
-            <div class="count">좋아요</div>
+            {/* <div class="count">조회</div>
+            <div class="count">좋아요</div> */}
           </TableHeader>
           <TableUl>
-          <TableList>
-            <div class="num">환경</div>
-            <div class="title">
-              <a href="view.html">탄소중립에 앞장서야하나,속도조절 필요한가</a>
-            </div>
-            <div class="writer">kim</div>
-            <div class="date">2021.1.15</div>
-            <div class="count">33</div>
-            <div class="count">23</div>
-          </TableList>
+        {clickCategoryList.map((list)=>(
+  <TableList onClick={clickList}>
+    <div style={{display:'none'}} ref={postId}>{list.id}</div>
+  <div class="num">{list.category}</div>
+  <div class="title">
+    <div>{list.title}</div>
+  </div>
+  <div class="writer">{list.memberName}</div>
+  <div class="date">{list.createDate}</div>
+  {/* <div class="count">33</div>
+  <div class="count">23</div> */}
+</TableList>
+        ))}
+        
           </TableUl>
         </div>
       </TableWrap>
@@ -75,6 +91,9 @@ border-right:  1px solid black;
 
 `
 let TableList=styled.div`
+font-size: 22px;
+
+cursor: pointer;
 display: grid;
 grid-template-columns: 10% 60% 10% 10% 5% 5%;
 text-align: center;

@@ -13,14 +13,18 @@ import OAuth2RedirectHandler from "./api/OAuth2Redirct";
 import { getCurrentUser } from "./api/apiutil";
 import { useEffect, useState } from "react";
 import { ACCESS_TOKEN, REFRESH_TOKEN } from "./api/constants";
+import PostDetail2 from "./postDetail/postDetail2";
+import { useDispatch } from "react-redux";
 
 function App() {
+  const dispatch=useDispatch()
   const [authenticated,setAuthenticated]=useState(false)
   const [curerentUser,setCurrentUser]=useState(null)
 const loadCurrentlyLoggedInUser=()=> {
     getCurrentUser()
     .then(response => {
       console.log(response)
+      dispatch({type:'user/TOKENUSERID',payload:response.id})
        setAuthenticated(true);
       
     }).catch(error => {
@@ -46,6 +50,7 @@ const loadCurrentlyLoggedInUser=()=> {
           <Route path="writeMain" element={<WriteMainPageIndex />}/>
           <Route path="finalWrite" element={<FinalWritePageIndex />}/>
           <Route path="postDetail" element={<PostDetail />}/>
+          <Route path="postDetail2" element={<PostDetail2 />}/>
           <Route path="community" element={<Community />}/>
           <Route path="oauth2/redirect" element={<OAuth2RedirectHandler/>}/>
           </Route>

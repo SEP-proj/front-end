@@ -6,7 +6,7 @@ import { ment } from "../writePage/component/submitBox";
 import { useEffect, useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { completeText, getRecommendTitle } from "../../api/api";
+import { completeText, getChatFeedback, getRecommendTitle } from "../../api/api";
 import refresh from '../../asset/img/refresh.png'
 
 function FinalWritePageIndex({ category }) {
@@ -16,11 +16,11 @@ function FinalWritePageIndex({ category }) {
   let inputText = useSelector((state) => state.inputReducer);
   const navigation=useNavigate();
   const [content,setContent]=useState('')
-
+  let userId=useSelector((state)=>state.userReducer)
   const submit=useSelector((state)=>state.submitWrite);
   const complete=()=>{
     navigation('/postDetail')
-    completeText(submit,content,bchecked).then((res)=>{
+    completeText(submit,content,bchecked,userId).then((res)=>{
       console.log(res)
       console.log(content)
        let str=content;
@@ -47,6 +47,23 @@ function FinalWritePageIndex({ category }) {
         payload: {content:submit.content  ,title: res.data.body.title },
       });
 setFlag(true)
+    })
+  }
+  const feedback=()=>{
+    let str = "";
+    getChatFeedback(submit).then((res)=>{
+      console.log(res.data.body.advices.length)
+      for (let i = 0; i <res.data.body.advices.length; i++) {
+        
+        let reasons = res.data.body.reasons.at(i)
+        str += reasons + "\n";
+        let advice = res.data.body.advices.at(i)
+        str += advice + "\n";
+
+
+      }
+      console.log(str)
+      dispatch({type:'chatList/CHATTEXTLIST2',payload:str})
     })
   }
 
@@ -80,9 +97,10 @@ setFlag(true)
             공개하기
             <input type="checkbox" checked={bchecked} onChange={checkHandler}/>
           </div>
-          <div>
+          <CompleteBtnBox>
+            <FeedbackBtn onClick={feedback}>feedback</FeedbackBtn>
             <CompleteBtn onClick={complete}>완료</CompleteBtn>
-          </div>
+          </CompleteBtnBox>
         </FinalSubmit>
       </FinalWriting>
       </FinalWrap>
@@ -130,6 +148,9 @@ let FinalSubmit = styled.div`
   justify-content: space-between;
   margin-top: 20px;
 `;
+let CompleteBtnBox=styled.div`
+margin-right: 192px;
+`
 let CompleteBtn = styled.button`
   background-color: #00bf2a;
   border: none;
@@ -138,7 +159,21 @@ let CompleteBtn = styled.button`
   height: 30px;
   font-size: 18px;
   border-radius: 5px;
-  margin-right: 190px;
+  margin-left: 20px;
+  cursor: pointer;
+
+`;
+let FeedbackBtn = styled.button`
+  background-color: white;
+  border: 1px solid black;
+  color: black;
+  width: 100px;
+  height: 30px;
+  font-size: 18px;
+  border-radius: 5px;
+  margin-left: 20px;
+  cursor: pointer;
+
 `;
 let FinalTitleWrap = styled.div`
   text-align: left;

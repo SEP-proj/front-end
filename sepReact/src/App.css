@@ -1,12 +1,12 @@
 @font-face {
-  font-family: 'Nanum Gothic', sans-serif;
-  /* src: url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap'); */
+  font-family: "hanna";        
+  src: url("./asset/font/BMHANNAPro.ttf"); 
 }
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-font-family:'Nanum Gothic', sans-serif;
+font-family:'hanna';
   list-style: none;
 }
 a {

@@ -22,7 +22,7 @@ let Btn = styled.a`
   background-color: white;
   color: #787878;
   font-size: 18px;
-  padding-top:6px ;
+  padding-top:11px ;
   font-weight: bold;
 `
 
