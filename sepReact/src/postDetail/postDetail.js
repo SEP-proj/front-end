@@ -55,7 +55,7 @@ let HeaderWrap=styled.div`
     
 let Subject = styled.div`
   display: flex;
-
+  margin-left: 97px;
   & > p {
     background-color: #05d0b8;
     color: white;
@@ -63,12 +63,13 @@ let Subject = styled.div`
     height: 40px;
     font-size: 20px;
     border-radius: 20px;
-    padding-top: 6px;
+    padding-top: 10px;
   }
   & > span {
     margin-left: 20px;
     font-size: 20px;
     font-weight: bold;
+    padding-top: 10px;
   }
 `;
 let FinalTitleWrap = styled.div`
@@ -97,7 +98,7 @@ border-radius: 5px;
 let FinalContentWrap = styled.p`
 margin:40px auto;
 
-
+font-size: 20px;
 width: 60%;
 height: 50vh;
 padding: 10px;

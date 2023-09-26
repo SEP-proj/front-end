@@ -1,7 +1,7 @@
 
 import { request } from './apiutil';
 
-const baseUrl = "http://192.168.0.48:8080"
+const baseUrl = "http://192.168.0.189:8080"
 
 
 export  function getClickSubject(category){
@@ -15,16 +15,30 @@ export  function getClickSubject(category){
       }) 
    })
  }
- export function next(Subject,category){
-  console.log(Subject)
-  console.log(category)
+ export function next(Subject,category,memeberId){
+console.log(memeberId)
+let temp;
+switch(category){
+   case "일상" : 
+   temp=  "DAILY";
+      break;
+  
+   case "사회" : 
+   temp= "SOCIETY"; break;
+   case "과학" :  temp=  "SCIENCE";break;
+   case "스포츠" :  temp=  "SPORTS";break;
+   case "문화/예술" :  temp=  "CULTURE";break;
+   case "환경" :  temp=  "ENVIRONMENT";break;
+   default :  temp=  category
+}
+console.log(temp)
      return request({
       url:baseUrl + "/v1/post",
       method:'post',
       body:JSON.stringify({
-         category:'DAILY',
-         title:Subject,      
-         memberId: 1
+         category:temp,
+         subject:Subject,      
+         memberId: memeberId
       })
      }) 
   
@@ -70,7 +84,10 @@ export function updateSave(WritingText,userId){
    })
 }
 
+
 export function getChatText(WritingText,chatText){
+ console.log('api들어온',WritingText)
+ console.log('api들어온',chatText)
    return request({
       url:baseUrl + '/v1/post/chat/help',
       method:'post',
@@ -82,7 +99,7 @@ export function getChatText(WritingText,chatText){
       })
    })
 }
-export function getChatRobot(WritingText,chatText){
+export function getChatRobot(WritingText){
    return request({
       url:baseUrl + '/v1/post/chat/question',
       method:'post',
@@ -90,19 +107,16 @@ export function getChatRobot(WritingText,chatText){
          introduction:WritingText.intro,
          body:WritingText.body,
          conclusion:WritingText.conclu,
-         user_input:chatText
+ 
       })
    })
 }
-export function getChatFeedback(WritingText,chatText){
+export function getChatFeedback(submit){
    return request({
-      url:baseUrl + '/v1/post/chat/help',
+      url:baseUrl + '/v1/post/chat/feedback',
       method:'post',
       body:JSON.stringify({
-         introduction:WritingText.intro,
-         body:WritingText.body,
-         conclusion:WritingText.conclu,
-         user_input:chatText
+         content:submit.content
       })
    })
 }
@@ -120,7 +134,7 @@ user_input:chatText
 })
 }
 export async function getRecommendTitle(submit){
-
+console.log(submit.content)
 return request({
    url:baseUrl + "/v1/post/recommend/title",
    method:'post',
@@ -130,7 +144,7 @@ return request({
    })
 })
 }
-export async function completeText(submit,content,bchecked){
+export async function completeText(submit,content,bchecked,userId){
 console.log(submit.title)
 console.log(content)
 console.log(bchecked)
@@ -138,23 +152,49 @@ return request({
    url:baseUrl + "/v1/post/final",
    method:'put',
    body:JSON.stringify({
-      id:1,
+      id:userId,
       title:submit.title,
       content:content,
       published:bchecked
    })
 })
 }
-export async function getCommunityList(submit,bchecked){
+export async function getCommunityList(){
 
 return request({
-   url:baseUrl + "/v1/post/result",
+   url:baseUrl + "/v1/post/all",
    method:'get',
+  
+})
+}
+export async function getCategory(category){
+   let temp;
+   switch(category){
+      case "일상" : 
+      temp=  "DAILY";
+         break;
+     
+      case "사회" : 
+      temp= "SOCIETY"; break;
+      case "과학" :  temp=  "SCIENCE";break;
+      case "스포츠" :  temp=  "SPORTS";break;
+      case "문화/예술" :  temp=  "CULTURE";break;
+      case "환경" :  temp=  "ENVIRONMENT";break;
+      default :  temp=  category
+   }
+return request({
+   url:baseUrl + "/v1/post/category",
+   method:'post',
    body:JSON.stringify({
-      id:1,
-      title:submit.title,
-      content:submit.content,
-      published:bchecked
+     category:temp
    })
+})
+}
+export async function getPostDetail(id){
+  console.log(id)
+return request({
+   url:baseUrl + "/v1/post/"+id,
+   method:'get',
+ 
 })
 }

@@ -53,7 +53,7 @@ let HeadeWrap = styled.header`
   height: 100%;
   text-align: center;
   background-color: #05d0b8;
-  border-bottom: ${(props) => (props.flag ? "1px solid black" : "none")};
+  border-bottom: none;
 
   display: grid;
   grid-template-columns: 1fr 4fr 1fr;
@@ -87,6 +87,6 @@ let Logout=styled.a`
   background-color: white;
   color: #787878;
   font-size: 18px;
-  padding-top:6px ;
+  padding-top:11px ;
   font-weight: bold;
 `

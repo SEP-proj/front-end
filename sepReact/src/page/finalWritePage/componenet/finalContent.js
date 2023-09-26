@@ -30,13 +30,15 @@ export default FinalContent;
 let FinalContentWrap = styled.textarea `
   margin-top: 20px;
  
- 
+ font-size: 20px;
+
   width: 80%;
   height: 50vh;
   padding: 10px;
   text-align: left;
-  line-height: 25px;
+  line-height: 30px;
   background-color:#F5F5F5;
     box-shadow: 3px 4px 5px rgba(0, 0, 0, 0.2), 8px 5px 2px rgba(0, 0, 0, 0.02);
     border-radius: 10px;
+    margin-right: 192px;
 `;

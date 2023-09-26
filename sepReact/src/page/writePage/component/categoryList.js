@@ -77,12 +77,12 @@ let CategortUl = styled.ul`
     height: 40px;
     text-align: center;
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 20px;
     color: black;
     cursor: pointer;
   }
 
   & > li > p {
-    margin-top: 6px;
+    margin-top: 10px;
   }
 `;

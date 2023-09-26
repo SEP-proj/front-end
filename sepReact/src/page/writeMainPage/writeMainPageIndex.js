@@ -60,11 +60,12 @@ let Subject = styled.div`
     height: 40px;
     font-size: 20px;
     border-radius: 20px;
-   padding-top:6px;
+   padding-top:10px;
   }
   & > span {
     margin-left: 20px;
     font-size: 20px;
     font-weight: bold;
+    margin-top: 10px;
   }
 `;

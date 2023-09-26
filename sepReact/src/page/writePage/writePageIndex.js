@@ -13,7 +13,7 @@ function WrtiePageIndex(){
   const dispatch=useDispatch();
   const today=()=>{
 
-    dispatch({type:'category/CATEGORY',payload:todayCategory.current.innerText});
+  
     dispatch({type:'input/INPUTTEXT',payload:todaySubject.current.innerText})
 
    
@@ -64,6 +64,7 @@ cursor: pointer;
 `
 let Category=styled.div`
 display: flex;
+
 &>div{
     background-color: black;
     border-radius: 18px;
@@ -75,14 +76,18 @@ display: flex;
     margin-right:30px ;
     margin-bottom:30px;
     cursor: pointer;
+    padding-top: 7px;
+
   
 }
 &>p{
     font-weight: bold;
     margin-right: 5px;
     font-size: 25px; 
+    padding-top: 7px;
 }
 &>span{
     font-size: 25px;
+    padding-top: 7px;
 }
 `

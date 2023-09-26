@@ -1,35 +1,50 @@
 import styled from "styled-components";
 import Table from "./component/table";
+import { getCategory } from "../../api/api";
+import { useState } from "react";
 
 function Community() {
   const categoryList = [
     {
       title: "전체",
+      category:"ALL"
     },
     {
       title: "일상",
+      category: "DAILY",
     },
     {
       title: "사회",
+      category: "SOCIETY",
     },
     {
       title: "과학",
+      category: "SCIENCE",
     },
     {
       title: "스포츠",
+      category: "SPORTS",
     },
     {
       title: "문화/예술",
+      category: "CULTURE",
     },
     {
       title: "환경",
+      category: "ENVIRONMENT",
     },
   ];
+  const [clickCategoryList,setClickCategoryList]=useState([])
+  const clickCategory=(e)=>{
+    getCategory(e.target.innerText).then((res)=>{
+    setClickCategoryList(res.data)
+    })
+  }
   return (
     <Main>
       <CategortUl>
         {categoryList.map((list) => (
-          <li>
+          <li onClick={clickCategory}>
             <p>{list.title}</p>
           </li>
         ))}
@@ -38,7 +53,7 @@ function Community() {
         <button>검색</button>
         </SearchBox>
       </CategortUl>
-      <Table/>
+      <Table clickCategoryList={clickCategoryList} setClickCategoryList={setClickCategoryList}/>
     </Main>
   );
 }

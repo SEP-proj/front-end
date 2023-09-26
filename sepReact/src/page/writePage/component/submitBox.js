@@ -14,11 +14,13 @@ function SubmitBox({recoList,suggestion}) {
   let changeInputplacehold = useSelector((state) => state.inputReducer);
   let recommendList=useSelector((state)=>state.recommendList)
   let category=useSelector((state)=>state.categoryReducer)
+  const memeberId=useSelector((state)=>state.userIdReducer)
 const [inputWrite,setInputWrtie]=useState('')
 const dispatch=useDispatch();
 const changeInput=(e)=>{
   setInputWrtie(e.target.value)
   dispatch({type:'input/INPUTTEXT',payload:inputWrite})
+  dispatch({ type: "category/CATEGORY", payload:'' });
 }
 
 const ClickNext=()=>{
@@ -34,16 +36,16 @@ if(category==''){
   })
 }else{
 console.log('카테고리 값있음')
-  next(changeInputplacehold,category).then((res)=>{
+  next(changeInputplacehold,category,memeberId).then((res)=>{
     console.log(res.data)
     dispatch({type:'user/USERID',payload:res.data.id})
-    dispatch({type:'input/INPUTTEXT',payload:res.data.title});
+    dispatch({type:'input/INPUTTEXT',payload:res.data.subject});
   })
 }
 }
 const valueOnclick = (e) => {
   console.log(e.target.innerText);
-
+  dispatch({ type: "category/CATEGORY", payload:'' });
   dispatch({type:'input/INPUTTEXT',payload:e.target.innerText});
   
 };
@@ -83,6 +85,7 @@ let CategorytInput = styled.input`
   height: 50px;
   border-radius: 10px;
   margin-top: 50px;
+   font-size: 20px;
   &::placeholder {
     padding-left: 20px;
     margin-top: 5px;
@@ -107,7 +110,7 @@ const SuggestionUl = styled.ul`
   border-radius: 10px;
   & > li {
     list-style: square;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     margin: 30px;
     margin-left: 50px;
