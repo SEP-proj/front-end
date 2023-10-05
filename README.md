@@ -10,15 +10,24 @@
 #### 1) 카테고리 별 주제추천 기능
 카테고리 선택시 5개씩 주체 추천
 
+![subjectmd](https://github.com/SEP-proj/front-end/assets/96166174/ecbb6567-cf59-4d79-af5d-fe503797c2de)
 
-#### 2) 합쳐진 글 피드백
+
+#### 2) 제목추천 및 합쳐진 글 피드백
+제목이 합쳐진 글에 따라 추천되며 다시 재추천으로 다른 제목을 받을수도있
 서론,본론, 결론 작성후 완료를 하면 챗봇으로 글에 대한 피드백이 옴
+
+![피드백](https://github.com/SEP-proj/front-end/assets/96166174/2beff1fa-3988-4064-99b5-66359d2396d0)
 
 
 
 
 #### 3) 챗봇 질문기능
 글을 쓰다 막혔을 때 어떤식으로 글을 쓰면 좋을지 가이드해주거나 필요한 정보가 있을 때 인터넷에 올라와있는 링크를 알려줌
+
+![챗봇1](https://github.com/SEP-proj/front-end/assets/96166174/bacc90ca-c1c6-4233-83a4-5ea2b0fb8c79)
+![챗봇2](https://github.com/SEP-proj/front-end/assets/96166174/ed06f9fa-b3aa-428b-90d4-a5e3441691a9)
+
 
 ***
 
