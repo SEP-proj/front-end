@@ -8,7 +8,7 @@
 ### ⭐️ Feat: 주요 기능 소개
 
 #### 1) 카테고리 별 주제추천 기능
-카테고리 선택시 5개씩 주체 추천
+카테고리 선택시 5개씩 주제제 추천
 
 ![subjectmd](https://github.com/SEP-proj/front-end/assets/96166174/ecbb6567-cf59-4d79-af5d-fe503797c2de)
 
